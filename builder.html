@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>ChandigarhLYF — Local Services & Verified Classified Ads</title>
+    <meta name="description" content="Find Verified Local Services, Gigs & Classified Listings in Your City. Browse thousands of direct ads from individual providers and verified agencies.">
+    <meta name="theme-color" content="#0B0C10">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 1. Variables - MIDNIGHT GOLD THEME */
+        :root {
+            --bg: #0B0C10;         /* Deep Obsidian */
+            --surface: #111318;    /* Dark Charcoal */
+            --card: #181B21;       /* Elevated Slate */
+            --border: #2A2E36;     /* Soft Graphite */
+            
+            --text-light: #F3F4F6; /* Warm White */
+            --text-muted: #A1A1AA; /* Muted Silver */
+            
+            --accent-gold: #D4AF37; /* Champagne Gold */
+            --accent-green: #168A61; /* Muted Emerald (Verified/WhatsApp) */
+            --accent-blue: #334155;  /* Slate Blue (Call) */
+            
+            --font-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            
+            --nav-height: 60px;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* 2. Reset & Basics */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-light);
+            font-family: var(--font-main);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            padding-bottom: calc(60px + var(--safe-bottom)); /* Space for mobile action bar */
+        }
+        
+        a { color: inherit; text-decoration: none; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+        /* 3. Typography */
+        h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; color: var(--text-light); }
+        h1 { font-size: clamp(24px, 4vw, 36px); margin-bottom: 16px; text-align: center; }
+        h2 { font-size: clamp(20px, 3vw, 28px); margin-bottom: 16px; }
+        h3 { font-size: 18px; margin-bottom: 8px; }
+        p { font-size: 15px; margin-bottom: 16px; color: var(--text-muted); }
+        
+        /* 4. Layout & Components */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+        .section { padding: 40px 0; }
+        
+        /* Buttons */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center;
+            padding: 8px 16px; border-radius: 4px; font-weight: 600; font-size: 14px;
+            transition: opacity 0.2s; text-align: center;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn-gold { background-color: var(--accent-gold); color: #000; }
+        .btn-blue { background-color: var(--accent-blue); color: var(--text-light); }
+        .btn-green { background-color: var(--accent-green); color: var(--text-light); }
+        .btn-outline-gold { border: 1px solid var(--accent-gold); color: var(--accent-gold); }
+        
+        /* 5. Header / Top Nav */
+        .header {
+            background-color: #07080B;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo { font-size: 20px; font-weight: 700; color: var(--text-light); }
+        .logo span { color: var(--accent-gold); }
+        
+        .desktop-nav { display: none; gap: 20px; align-items: center; }
+        .desktop-nav a { font-size: 14px; color: var(--text-muted); transition: color 0.2s; }
+        .desktop-nav a:hover { color: var(--accent-gold); }
+        @media (min-width: 768px) { .desktop-nav { display: flex; } }
+        
+        .post-ad-btn { background-color: var(--accent-gold); color: #000; padding: 6px 15px; border-radius: 20px; font-weight: 600; font-size: 13px; }
+        
+        /* 6. Hero & Search Area */
+        .hero-section {
+            background-color: var(--bg);
+            padding: 30px 0 20px 0;
+            text-align: center;
+        }
+        .search-box {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto 15px auto;
+        }
+        @media (min-width: 768px) { .search-box { flex-direction: row; } }
+        .search-box input, .search-box select {
+            padding: 12px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .search-box input { flex: 1; }
+        .search-box select { flex: 1; }
+        .search-btn { background-color: var(--accent-gold); color: #000; padding: 12px 20px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        
+        /* Sub-navigation / Breadcrumbs area */
+        .sub-nav { background-color: var(--surface); border-bottom: 1px solid var(--border); padding: 12px 0; font-size: 13px; color: var(--text-muted); }
+        .sub-nav a { color: var(--text-light); margin: 0 5px; }
+
+        /* 7. Featured Content Area */
+        .featured-banner {
+            background-color: var(--surface);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        .featured-banner h2 { color: var(--text-light); font-size: 22px; text-align: center; margin-bottom: 15px;}
+        .featured-image-container { position: relative; max-width: 800px; margin: 0 auto; }
+        .featured-image-container img { width: 100%; border-radius: 8px; }
+        
+        /* 8. Classifieds Grid (Screenshot-style structure) */
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile based on image */
+            gap: 12px;
+            padding: 10px 0;
+        }
+        @media (min-width: 768px) { .listings-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+        @media (min-width: 1024px) { .listings-grid { grid-template-columns: repeat(4, 1fr); } }
+        
+        .listing-card {
+            background-color: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .listing-card:hover { border-color: rgba(212, 175, 55, 0.4); transform: translateY(-2px); }
+        
+        .listing-img-wrapper { position: relative; aspect-ratio: 3/4; overflow: hidden; background-color: var(--surface);}
+        .listing-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .verified-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: var(--accent-green);
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+        
+        .listing-details { padding: 12px; flex: 1; display: flex; flex-direction: column; }
+        .listing-title { font-size: 14px; font-weight: 600; margin-bottom: 5px; color: var(--text-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .listing-meta { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 12px; color: var(--text-muted); }
+        .meta-tag { background-color: var(--surface); border: 1px solid var(--border); padding: 2px 6px; border-radius: 4px; }
+        .meta-tag.gold { color: var(--accent-gold); border-color: rgba(212, 175, 55, 0.3); }
+        
+        .listing-actions { display: flex; gap: 6px; margin-top: auto; }
+        .btn-call-small { flex: 1; background-color: var(--accent-blue); color: white; text-align: center; padding: 8px 0; border-radius: 4px; font-size: 12px; font-weight: 600;}
+        .btn-wa-small { flex: 1; background-color: var(--accent-green); color: white; text-align: center; padding: 8px 0; border-radius: 4px; font-size: 12px; font-weight: 600;}
+
+        /* 9. Content Blocks (Structure from screenshot, styled in Midnight Gold) */
+        .content-block {
+            background-color: var(--surface);
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        .content-block h2, .content-block h3 { color: var(--accent-gold); }
+        .content-block p { font-size: 15px; line-height: 1.6; margin-bottom: 15px;}
+        
+        /* 10. Tables (Pricing/Rates) */
+        .table-wrapper {
+            background-color: var(--card);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        th {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+            font-weight: 600;
+            padding: 14px 16px;
+            text-align: left;
+        }
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background-color: var(--surface); }
+        
+        /* 10.5 Accordion FAQ */
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            background-color: var(--surface);
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+        .faq-item.active {
+            border-color: rgba(212, 175, 55, 0.5);
+        }
+        .faq-question {
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-light);
+            background-color: var(--card);
+            transition: background-color 0.2s;
+        }
+        .faq-question:hover {
+            background-color: var(--surface);
+        }
+        .faq-question-content { display: flex; align-items: center; gap: 15px; }
+        .faq-q-badge {
+            font-size: 11px;
+            font-weight: 700;
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--accent-gold);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+            background-color: var(--text-light);
+            color: var(--bg);
+            border-color: transparent;
+        }
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            color: var(--text-muted);
+            font-size: 14px;
+            background-color: var(--surface);
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+            border-top: 1px solid var(--border);
+        }
+        .faq-a-badge {
+            font-size: 11px;
+            font-weight: 700;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            padding: 4px 8px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* 11. SEO Tags Cloud */
+        .seo-tags-section {
+            background-color: var(--card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 40px 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .seo-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .seo-tag {
+            font-size: 13px;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+        .seo-tag:hover { border-color: var(--accent-gold); color: var(--text-light); }
+
+        /* 12. Footer */
+        footer {
+            background-color: #07080B;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        footer a { text-decoration: underline; margin: 0 10px; transition: color 0.2s;}
+        footer a:hover { color: var(--accent-gold); }
+
+        /* 13. Mobile Bottom Bar */
+        .mobile-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: calc(60px + var(--safe-bottom));
+            background-color: rgba(11, 12, 16, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            padding-bottom: var(--safe-bottom);
+            z-index: 1000;
+            border-top: 1px solid var(--border);
+        }
+        .bottom-action {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+        .bottom-action.call { background-color: var(--accent-blue); }
+        .bottom-action.whatsapp { background-color: var(--accent-green); }
+        @media (min-width: 768px) { .mobile-bottom-bar { display: none; } }
+        
+        /* Floating Support/Post Button */
+        .floating-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-gold), var(--gold-light));
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            z-index: 999;
+            transition: transform 0.2s;
+        }
+        .floating-btn:hover { transform: scale(1.05); }
+        @media (min-width: 768px) { .floating-btn { bottom: 30px; } }
+
+    </style>
+</head>
+<body>
+
+    <!-- 1. Header Navigation -->
+    <header class="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">Chandigarh<span>LYF</span></a>
+            
+            <nav class="desktop-nav">
+                <a href="#">Home</a>
+                <a href="#">Categories</a>
+                <a href="#">Locations</a>
+                <a href="#" id="openAdminBtn" style="color: var(--accent-gold); border: 1px solid var(--accent-gold); padding: 4px 10px; border-radius: 4px; font-weight: bold;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 5px; margin-top: -2px;"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>Admin Editor</a>
+                <a href="#" class="post-ad-btn">+ Post a Free Ad</a>
+            </nav>
+            
+            <a href="#" class="post-ad-btn" style="display: block; @media(min-width: 768px){display: none;}">+ Post Ad</a>
+        </div>
+    </header>
+
+    <div class="sub-nav">
+        <div class="container">
+            <a href="#">Home</a> > <span>Classifieds Directory</span>
+        </div>
+    </div>
+
+    <!-- 2. Hero & Search -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Discover Local Services & Verified Classified Ads</h1>
+            <p style="font-size: 14px; color: var(--accent-gold); max-width: 600px; margin: 0 auto 24px auto;">Find Verified Local Services, Gigs & Classified Listings in Your City.</p>
+            
+            <div class="search-box">
+                <select>
+                    <option>Select City</option>
+                    <option>Chandigarh</option>
+                    <option>Mohali</option>
+                    <option>Panchkula</option>
+                </select>
+                <select>
+                    <option>Select Category</option>
+                    <option>Health, Wellness & Spa</option>
+                    <option>Event Staffing & Hosts</option>
+                    <option>Personal Assistants</option>
+                </select>
+                <input type="text" placeholder="Search keywords...">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="container" style="padding-top: 10px;">
+        
+        <!-- Featured Banner -->
+        <div class="featured-banner">
+            <h2>Premium Spotlight Listings</h2>
+            <div class="featured-image-container">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Premium Services Banner" style="height: 180px; object-fit: cover;">
+            </div>
+        </div>
+
+        <!-- 3. Classifieds Grid (Screenshot Structure, Midnight Gold Theme) -->
+        <div class="listings-grid">
+            <!-- Listing 1 -->
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <span class="verified-badge">VERIFIED SELLER</span>
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Listing Image">
+                </div>
+                <div class="listing-details">
+                    <div class="listing-title">Aanya - Health & Wellness</div>
+                    <div class="listing-meta">
+                        <span class="meta-tag">ID: #8492</span>
+                        <span class="meta-tag gold">Active</span>
+                    </div>
+                    <div class="listing-actions">
+                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
+                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listing 2 -->
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <span class="verified-badge" style="background: var(--phone);">VERIFIED AGENCY</span>
+                    <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80" alt="Listing Image">
+                </div>
+                <div class="listing-details">
+                    <div class="listing-title">Riya - Event Staffing</div>
+                    <div class="listing-meta">
+                        <span class="meta-tag">ID: #9102</span>
+                        <span class="meta-tag gold">Active</span>
+                    </div>
+                    <div class="listing-actions">
+                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
+                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Listing 3 -->
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <span class="verified-badge">VERIFIED SELLER</span>
+                    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80" alt="Listing Image">
+                </div>
+                <div class="listing-details">
+                    <div class="listing-title">Meera - Personal Assistant</div>
+                    <div class="listing-meta">
+                        <span class="meta-tag">ID: #3321</span>
+                        <span class="meta-tag gold">Active</span>
+                    </div>
+                    <div class="listing-actions">
+                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
+                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Listing 4 -->
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <span class="verified-badge">VERIFIED SELLER</span>
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80" alt="Listing Image">
+                </div>
+                <div class="listing-details">
+                    <div class="listing-title">Kavya - Social Events</div>
+                    <div class="listing-meta">
+                        <span class="meta-tag">ID: #5512</span>
+                        <span class="meta-tag gold">Active</span>
+                    </div>
+                    <div class="listing-actions">
+                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
+                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Generate a few more to populate the grid -->
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <span class="verified-badge" style="background: var(--phone);">VERIFIED AGENCY</span>
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="Listing Image">
+                </div>
+                <div class="listing-details">
+                    <div class="listing-title">Tara - Wellness & Spa</div>
+                    <div class="listing-meta">
+                        <span class="meta-tag">ID: #7721</span>
+                        <span class="meta-tag gold">Active</span>
+                    </div>
+                    <div class="listing-actions">
+                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
+                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="listing-card">
+                <div class="listing-img-wrapper">
+                    <span class="verified-badge">VERIFIED SELLER</span>
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80" alt="Listing Image">
+                </div>
+                <div class="listing-details">
+                    <div class="listing-title">Naina - Event Gigs</div>
+                    <div class="listing-meta">
+                        <span class="meta-tag">ID: #8890</span>
+                        <span class="meta-tag gold">Active</span>
+                    </div>
+                    <div class="listing-actions">
+                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
+                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Render Target for Admin Editor Content -->
+        <div id="dynamicContentTarget"></div>
+
+        <!-- Paste your custom SEO HTML here -->
+
+    </main>
+    
+
+
+    <!-- 6. Footer -->
+    <footer>
+        <p>&copy; 2026 ChandigarhLYF Classifieds Directory. All rights reserved.</p>
+        <p style="margin-top: 15px;">
+            <a href="#">Privacy Policy</a> | 
+            <a href="#">Terms of Service</a> | 
+            <a href="#">Contact Support</a>
+        </p>
+    </footer>
+
+    <!-- 7. Mobile Action Bar (Sticky Bottom) -->
+    <div class="mobile-bottom-bar">
+        <a href="tel:+910000000000" class="bottom-action call">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            CALL POSTER
+        </a>
+        <a href="https://wa.me/910000000000" class="bottom-action whatsapp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 8px;"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            CHAT ON WHATSAPP
+        </a>
+    </div>
+
+    <!-- Floating Post Ad Button -->
+    <a href="#" class="floating-btn" title="Post Free Ad">
+        +
+    </a>
+
+        <!-- Admin Panel Modal -->
+        <div id="adminModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
+            <div style="background: var(--card); border: 1px solid var(--accent-gold); border-radius: 12px; width: 90%; max-width: 800px; padding: 25px; position: relative;">
+                <button id="closeAdminModal" style="position: absolute; top: 15px; right: 20px; background: none; border: none; color: var(--text-muted); font-size: 24px; cursor: pointer;">&times;</button>
+                
+                <h3 style="color: var(--accent-gold); margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align: middle; margin-right: 10px; margin-top: -2px;"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    SEO Admin Panel
+                </h3>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <label style="font-size: 14px; font-weight: 600; color: var(--text-light);">Paste SEO JSON Content</label>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 15px;">Paste your formatted JSON file here. It will be automatically arranged and rendered into the layout.</p>
+                
+                <textarea id="adminJsonInput" style="width: 100%; min-height: 250px; background: var(--bg); color: var(--text-light); border: 1px solid var(--border); border-radius: 8px; padding: 15px; font-family: monospace; resize: vertical;" placeholder='{ "html_structure": { ... } }'></textarea>
+                
+                <div id="adminJsonError" style="display: none; padding: 10px; background: rgba(255,0,0,0.1); border: 1px solid #ff4444; border-radius: 4px; color: #ff4444; font-size: 13px; margin-top: 15px;"></div>
+                
+                <div style="margin-top: 20px; text-align: right; display: flex; justify-content: flex-end; gap: 10px;">
+                    <button id="btnCopyHtml" style="background: var(--surface); color: var(--text-light); border: 1px solid var(--border); padding: 10px 24px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px;">Apply & Copy HTML</button>
+                    <button id="btnRenderContent" style="background: var(--accent-gold); color: #000; border: none; padding: 10px 24px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px;">Apply JSON to Page</button>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Mobile Menu Toggle
+            const menuBtn = document.getElementById('menuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            if(menuBtn && mobileNav) {
+                menuBtn.addEventListener('click', () => {
+                    mobileNav.classList.toggle('open');
+                    const isOpen = mobileNav.classList.contains('open');
+                    menuBtn.innerHTML = isOpen 
+                        ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>'
+                        : '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+                    document.body.style.overflow = isOpen ? 'hidden' : '';
+                });
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileNav.classList.remove('open');
+                        document.body.style.overflow = '';
+                        menuBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>';
+                    });
+                });
+            }
+
+            // 2. Admin Panel Logic
+            const openAdminBtn = document.getElementById('openAdminBtn');
+            const adminModal = document.getElementById('adminModal');
+            const closeAdminModal = document.getElementById('closeAdminModal');
+            const btnRenderContent = document.getElementById('btnRenderContent');
+            const jsonInput = document.getElementById('adminJsonInput');
+            const errorDisplay = document.getElementById('adminJsonError');
+            const btnCopyHtml = document.getElementById('btnCopyHtml');
+            const targetContainer = document.getElementById('dynamicContentTarget');
+
+            if (openAdminBtn && adminModal) {
+                openAdminBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    adminModal.style.display = 'flex';
+                });
+            }
+
+            if (closeAdminModal) {
+                closeAdminModal.addEventListener('click', () => {
+                    adminModal.style.display = 'none';
+                });
+            }
+
+            // Close modal when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === adminModal) {
+                    adminModal.style.display = 'none';
+                }
+            });
+
+            // Safe DOM Construction Tool
+            function createEl(tag, styles, textContent) {
+                const el = document.createElement(tag);
+                if (styles) el.style.cssText = styles;
+                if (textContent) el.textContent = textContent;
+                return el;
+            }
+
+            function renderJSONToDOM(jsonObj, container) {
+                container.innerHTML = ''; // Clear previous
+                const struct = jsonObj.html_structure || jsonObj;
+
+                if (!struct.sections && !struct.h1) {
+                    throw new Error("Missing 'html_structure', 'h1', or 'sections' keys.");
+                }
+
+                const contentBlock = createEl('div', 'margin-top: 30px;');
+                contentBlock.className = 'content-block';
+
+                if (struct.h1) {
+                    contentBlock.appendChild(createEl('h1', 'color: var(--accent-gold); margin-bottom: 30px; text-align: center;', struct.h1));
+                }
+
+                if (struct.sections && Array.isArray(struct.sections)) {
+                    struct.sections.forEach(sec => {
+                        const secDiv = createEl('div', 'margin-bottom: 40px;');
+
+                        if (sec.h2) {
+                            secDiv.appendChild(createEl('h2', 'margin-bottom: 15px;', sec.h2));
+                        }
+
+                        if (sec.p && Array.isArray(sec.p)) {
+                            sec.p.forEach(para => {
+                                secDiv.appendChild(createEl('p', 'margin-bottom: 16px; line-height: 1.6;', String(para)));
+                            });
+                        }
+
+                        if (sec.table) {
+                            const tableWrapper = createEl('div', 'margin: 20px 0; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;');
+                            const table = createEl('table', 'width: 100%; border-collapse: collapse; text-align: left; background: var(--card);');
+                            
+                            if (sec.table.thead) {
+                                const thead = createEl('thead', 'background: rgba(212, 175, 55, 0.1);');
+                                const tr = createEl('tr');
+                                sec.table.thead.forEach(thText => {
+                                    tr.appendChild(createEl('th', 'padding: 14px 16px; font-weight: 600; color: var(--accent-gold); border-bottom: 1px solid var(--border);', thText));
+                                });
+                                thead.appendChild(tr);
+                                table.appendChild(thead);
+                            }
+
+                            if (sec.table.tbody) {
+                                const tbody = createEl('tbody');
+                                sec.table.tbody.forEach(rowData => {
+                                    const tr = createEl('tr', 'border-bottom: 1px solid var(--border); background: var(--surface);');
+                                    rowData.forEach((cellText, index) => {
+                                        const textStr = String(cellText);
+                                        const td = createEl('td', '', textStr);
+                                        if (textStr.includes('{{') || index === rowData.length - 1) {
+                                            td.style.cssText = 'padding: 14px 16px; color: var(--accent-gold); font-weight: 500;';
+                                        } else {
+                                            td.style.cssText = 'padding: 14px 16px; color: var(--text-light);';
+                                        }
+                                        tr.appendChild(td);
+                                    });
+                                    tbody.appendChild(tr);
+                                });
+                                table.appendChild(tbody);
+                            }
+                            tableWrapper.appendChild(table);
+                            secDiv.appendChild(tableWrapper);
+                        }
+
+                        if (sec.h3 && Array.isArray(sec.h3)) {
+                            let qIndex = 1;
+                            sec.h3.forEach(faq => {
+                                const faqItem = createEl('div', '');
+                                faqItem.className = 'faq-item';
+
+                                if (faq.h3) {
+                                    const faqQuestion = createEl('div', '');
+                                    faqQuestion.className = 'faq-question';
+                                    
+                                    const qContent = createEl('div', '');
+                                    qContent.className = 'faq-question-content';
+                                    
+                                    const qBadge = createEl('span', '', 'Q' + qIndex);
+                                    qBadge.className = 'faq-q-badge';
+                                    qContent.appendChild(qBadge);
+                                    
+                                    const qText = document.createTextNode(' ' + faq.h3);
+                                    qContent.appendChild(qText);
+                                    
+                                    const icon = createEl('div', '', '▼');
+                                    icon.className = 'faq-icon';
+                                    icon.style.fontSize = '10px';
+                                    
+                                    faqQuestion.appendChild(qContent);
+                                    faqQuestion.appendChild(icon);
+                                    faqItem.appendChild(faqQuestion);
+                                    
+                                    // Add toggle logic
+                                    faqQuestion.addEventListener('click', () => {
+                                        faqItem.classList.toggle('active');
+                                    });
+                                }
+                                
+                                if (faq.p && Array.isArray(faq.p)) {
+                                    const faqAnswer = createEl('div', '');
+                                    faqAnswer.className = 'faq-answer';
+                                    
+                                    const aBadge = createEl('span', '', 'A');
+                                    aBadge.className = 'faq-a-badge';
+                                    faqAnswer.appendChild(aBadge);
+                                    
+                                    const ansTextWrapper = createEl('div', 'flex: 1;');
+                                    faq.p.forEach(para => {
+                                        ansTextWrapper.appendChild(createEl('p', 'margin-top: 0; margin-bottom: 12px; line-height: 1.6;', String(para)));
+                                    });
+                                    faqAnswer.appendChild(ansTextWrapper);
+                                    faqItem.appendChild(faqAnswer);
+                                }
+                                secDiv.appendChild(faqItem);
+                                qIndex++;
+                            });
+                        }
+                        contentBlock.appendChild(secDiv);
+                    });
+                }
+                container.appendChild(contentBlock);
+
+                if (struct.tags && Array.isArray(struct.tags)) {
+                    const tagsSection = createEl('div', '');
+                    tagsSection.className = 'seo-tags-section';
+                    
+                    const tagsTitle = createEl('h3', 'margin-top: 0; margin-bottom: 20px; color: var(--text-light); text-align: center; font-size: 16px;', 'Popular Local Search Tags');
+                    tagsSection.appendChild(tagsTitle);
+
+                    const tagsContainer = createEl('div', '');
+                    tagsContainer.className = 'seo-tags-container';
+                    
+                    struct.tags.forEach(tag => {
+                        const tagEl = createEl('a', '', String(tag));
+                        tagEl.className = 'seo-tag';
+                        tagEl.href = '#';
+                        tagsContainer.appendChild(tagEl);
+                    });
+                    
+                    tagsSection.appendChild(tagsContainer);
+                    container.appendChild(tagsSection);
+                }
+            }
+
+            if (btnRenderContent && jsonInput && targetContainer) {
+                btnRenderContent.addEventListener('click', () => {
+                    const val = jsonInput.value.trim();
+                    errorDisplay.style.display = 'none';
+                    if (!val) {
+                        alert("Please paste your JSON first.");
+                        return;
+                    }
+
+                    try {
+                        const data = JSON.parse(val);
+                        renderJSONToDOM(data, targetContainer);
+                        // Show copy button
+                        if (btnCopyHtml) btnCopyHtml.style.display = 'block';
+                        // Close modal on success
+                        if (adminModal) adminModal.style.display = 'none';
+                        // Scroll to the content
+                        targetContainer.scrollIntoView({ behavior: 'smooth' });
+                    } catch (e) {
+                        errorDisplay.textContent = 'Invalid JSON: ' + e.message;
+                        errorDisplay.style.display = 'block';
+                    }
+                });
+            }
+
+            if (btnCopyHtml && jsonInput && targetContainer) {
+                btnCopyHtml.addEventListener('click', () => {
+                    const val = jsonInput.value.trim();
+                    errorDisplay.style.display = 'none';
+                    if (!val) {
+                        alert("Please paste your JSON first.");
+                        return;
+                    }
+                    
+                    try {
+                        const data = JSON.parse(val);
+                        renderJSONToDOM(data, targetContainer);
+                        
+                        const htmlContent = targetContainer.innerHTML;
+                        navigator.clipboard.writeText(htmlContent).then(() => {
+                            const originalText = btnCopyHtml.textContent;
+                            btnCopyHtml.textContent = "Copied to Clipboard!";
+                            btnCopyHtml.style.background = "var(--accent-green)";
+                            btnCopyHtml.style.color = "#fff";
+                            setTimeout(() => {
+                                btnCopyHtml.textContent = originalText;
+                                btnCopyHtml.style.background = "var(--surface)";
+                                btnCopyHtml.style.color = "var(--text-light)";
+                                // Close modal after showing success
+                                if (adminModal) adminModal.style.display = 'none';
+                                targetContainer.scrollIntoView({ behavior: 'smooth' });
+                            }, 1500);
+                        }).catch(err => {
+                            console.error('Failed to copy: ', err);
+                            alert("Clipboard copy failed. Please copy manually from the Developer Tools.");
+                        });
+                    } catch (e) {
+                        errorDisplay.textContent = 'Invalid JSON: ' + e.message;
+                        errorDisplay.style.display = 'block';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
