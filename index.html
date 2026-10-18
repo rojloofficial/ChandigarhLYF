@@ -10,6 +10,20 @@
     <meta name="description"
         content="Find Verified Local Services, Gigs & Classified Listings in Your City. Browse thousands of direct ads from individual providers and verified agencies.">
     <meta name="theme-color" content="#0B0C10">
+    <meta name="rating" content="adult" />
+    <meta name="RATING" content="RTA-5042-1996-1400-1577-RTA" />
+
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <!-- Vercel Speed Insights -->
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,6 +184,62 @@
             color: var(--accent-gold);
         }
 
+        /* Top Announcement Marquee Banner */
+        .top-announcement-bar {
+            background: linear-gradient(90deg, #07080B, #161306, #241c05, #161306, #07080B);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+            color: #f3f4f6;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 8px 12px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1002;
+            overflow: hidden;
+        }
+
+        .top-announcement-bar .badge-gold {
+            background: linear-gradient(135deg, #d4af37, #aa820a);
+            color: #000;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 7px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+        }
+
+        .announcement-marquee {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            white-space: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .announcement-marquee::-webkit-scrollbar {
+            display: none;
+        }
+
+        .announcement-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .announcement-item .dot {
+            color: var(--accent-gold);
+            font-size: 10px;
+        }
+
         /* 5. Header / Top Nav */
         .header {
             background-color: #07080B;
@@ -222,13 +292,67 @@
             }
         }
 
-        .post-ad-btn {
-            background-color: var(--accent-gold);
-            color: #000;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 13px;
+        .mobile-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 8px;
+            transition: all 0.2s;
+        }
+
+        .mobile-menu-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            background: rgba(11, 12, 16, 0.98);
+            border-bottom: 2px solid var(--border);
+            padding: 16px 20px;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 1001;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(16px);
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav .nav-link {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+
+        .mobile-nav .nav-link:hover,
+        .mobile-nav .nav-link:active {
+            color: var(--accent-gold);
+            padding-left: 16px;
         }
 
         /* 6. Hero & Search Area */
@@ -281,6 +405,69 @@
             border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
+        }
+
+        /* 6.5 Trust Stats Bar */
+        .trust-stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            background: rgba(24, 27, 33, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 24px auto 0 auto;
+            max-width: 800px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .trust-stat-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .trust-stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: var(--border);
+        }
+
+        .trust-stat-num {
+            font-size: clamp(1.25rem, 2.8vw, 1.6rem);
+            font-weight: 800;
+            color: var(--accent-gold);
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .trust-stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .trust-stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px 10px;
+                padding: 16px 14px;
+            }
+            .trust-stat-item:not(:last-child)::after {
+                display: none;
+            }
         }
 
         /* Sub-navigation / Breadcrumbs area */
@@ -353,12 +540,35 @@
             display: flex;
             flex-direction: column;
             border: 1px solid var(--border);
-            transition: transform 0.2s, border-color 0.2s;
+            transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        box-shadow 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        border-color 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .listing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.09), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.75s ease;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .listing-card:hover::before {
+            left: 140%;
         }
 
         .listing-card:hover {
-            border-color: rgba(212, 175, 55, 0.4);
-            transform: translateY(-2px);
+            transform: translateY(-5px);
+            border-color: rgba(212, 175, 55, 0.55);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15);
         }
 
         .listing-img-wrapper {
@@ -372,84 +582,214 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .listing-card:hover .listing-img-wrapper img {
+            transform: scale(1.06);
+        }
+
+        .listing-img-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to top, rgba(24, 27, 33, 0.95) 0%, rgba(24, 27, 33, 0.35) 60%, transparent 100%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .verified-badge {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background-color: var(--accent-green);
-            color: white;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(22, 138, 97, 0.95);
+            color: #fff;
             font-size: 10px;
             font-weight: 700;
-            padding: 4px 8px;
+            padding: 3px 8px;
             border-radius: 4px;
             letter-spacing: 0.5px;
+            z-index: 2;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .verified-badge.agency {
+            background-color: rgba(30, 58, 95, 0.95);
+            border: 1px solid rgba(100, 181, 246, 0.3);
+        }
+
+        .rating-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(11, 12, 16, 0.85);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: var(--accent-gold);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            backdrop-filter: blur(4px);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 3px;
         }
 
         .listing-details {
-            padding: 12px;
+            padding: 14px 14px 16px;
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
         .listing-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 4px;
             color: var(--text-light);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            transition: color 0.2s;
+        }
+
+        .listing-card:hover .listing-title {
+            color: var(--accent-gold);
+        }
+
+        .listing-location {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .listing-meta {
             display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            margin-bottom: 12px;
-            color: var(--text-muted);
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
         }
 
         .meta-tag {
             background-color: var(--surface);
             border: 1px solid var(--border);
-            padding: 2px 6px;
+            padding: 2px 7px;
             border-radius: 4px;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
         .meta-tag.gold {
             color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.08);
             border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .listing-specs {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            padding: 5px 8px;
+            margin-bottom: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .listing-spec-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            white-space: nowrap;
+        }
+
+        .listing-spec-item strong {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .listing-spec-divider {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 10px;
         }
 
         .listing-actions {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             margin-top: auto;
         }
 
-        .btn-call-small {
+        .btn-call-small,
+        .btn-wa-small,
+        .btn-web-small {
             flex: 1;
-            background-color: var(--accent-blue);
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 4px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
             text-align: center;
-            padding: 8px 0;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+
+        .btn-call-small {
+            background-color: rgba(33, 150, 243, 0.12);
+            border: 1px solid rgba(33, 150, 243, 0.35);
+            color: #64b5f6;
+        }
+
+        .btn-call-small:hover {
+            background-color: #1976d2;
+            color: #fff;
+            border-color: #1976d2;
+            box-shadow: 0 4px 12px rgba(25, 118, 210, 0.35);
+            transform: translateY(-1px);
         }
 
         .btn-wa-small {
-            flex: 1;
-            background-color: var(--accent-green);
-            color: white;
-            text-align: center;
-            padding: 8px 0;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
+            background-color: rgba(37, 211, 102, 0.12);
+            border: 1px solid rgba(37, 211, 102, 0.35);
+            color: #25d366;
+        }
+
+        .btn-wa-small:hover {
+            background-color: #168a61;
+            color: #fff;
+            border-color: #168a61;
+            box-shadow: 0 4px 12px rgba(22, 138, 97, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-web-small {
+            background-color: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            color: var(--accent-gold);
+        }
+
+        .btn-web-small:hover {
+            background-color: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+            transform: translateY(-1px);
         }
 
         /* 9. Content Blocks (Structure from screenshot, styled in Midnight Gold) */
@@ -507,6 +847,258 @@
 
         tr:nth-child(even) {
             background-color: var(--surface);
+        }
+
+        /* 10.1 Luxury Rates & Packages Section (Inspired by Pune Yrr) */
+        .rates-section {
+            padding: 50px 0 35px;
+            position: relative;
+        }
+
+        .section-header-rates {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-header-rates .rates-eyebrow {
+            color: var(--accent-gold);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 10px;
+            background: rgba(212, 175, 55, 0.1);
+            padding: 5px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .section-header-rates .rates-title {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header-rates .rates-title span {
+            color: var(--accent-gold);
+            background: linear-gradient(135deg, #f7d088 0%, #d4af37 50%, #9e782f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header-rates .rates-subtitle {
+            max-width: 660px;
+            margin: 0 auto;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .rates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .rate-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            position: relative;
+        }
+
+        .rate-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.55);
+        }
+
+        .rate-card.featured {
+            border-color: var(--accent-gold);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.22);
+        }
+
+        .rate-card.featured:hover {
+            box-shadow: 0 16px 40px rgba(212, 175, 55, 0.35);
+        }
+
+        .rate-featured-ribbon {
+            background: linear-gradient(135deg, #f7d088 0%, #d4af37 50%, #9e782f 100%);
+            color: #0b0c10;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 6px 0;
+        }
+
+        .rate-header {
+            padding: 22px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .rate-category-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            letter-spacing: -0.3px;
+        }
+
+        .rate-category-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .rate-table-wrapper {
+            padding: 10px 18px 20px;
+            flex-grow: 1;
+            overflow-x: auto;
+        }
+
+        .rate-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        .rate-table th {
+            text-align: left;
+            padding: 12px 8px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+            background: transparent;
+        }
+
+        .rate-table th:last-child {
+            text-align: right;
+        }
+
+        .rate-table td {
+            padding: 13px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+        }
+
+        .rate-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .rate-table .service-name {
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .rate-table .price-val {
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .rate-card-footer {
+            padding: 16px 18px 20px;
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .rate-btn-wa {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 18px;
+            background: #168a61;
+            color: #ffffff !important;
+            font-size: 0.92rem;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(22, 138, 97, 0.35);
+        }
+
+        .rate-btn-wa:hover {
+            background: #1aa675;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(22, 138, 97, 0.5);
+            color: #ffffff !important;
+        }
+
+        .rate-btn-gold {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 18px;
+            background: linear-gradient(135deg, #f7d088 0%, #d4af37 50%, #9e782f 100%);
+            color: #0b0c10 !important;
+            font-size: 0.92rem;
+            font-weight: 800;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+        }
+
+        .rate-btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(212, 175, 55, 0.55);
+            color: #000000 !important;
+        }
+
+        .rate-btn-call {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 18px;
+            background: rgba(33, 150, 243, 0.15);
+            border: 1px solid rgba(33, 150, 243, 0.45);
+            color: #64b5f6 !important;
+            font-size: 0.92rem;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .rate-btn-call:hover {
+            background: #1e88e5;
+            border-color: #1e88e5;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.45);
+        }
+
+        @media (max-width: 768px) {
+            .rates-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .section-header-rates .rates-title {
+                font-size: 1.45rem;
+            }
         }
 
         /* 10.5 Accordion FAQ */
@@ -656,78 +1248,184 @@
             color: var(--accent-gold);
         }
 
-        /* 13. Mobile Bottom Bar */
-        .mobile-bottom-bar {
+        /* 13. Floating Bottom-Center Attention Dock (Call + WhatsApp + Website) */
+        .bottom-center-dock {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: calc(60px + var(--safe-bottom));
-            background-color: rgba(11, 12, 16, 0.95);
-            backdrop-filter: blur(10px);
-            display: flex;
-            padding-bottom: var(--safe-bottom);
-            z-index: 1000;
-            border-top: 1px solid var(--border);
-        }
-
-        .bottom-action {
-            flex: 1;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 13px;
-            color: white;
-            letter-spacing: 0.5px;
+            gap: 10px;
+            background: rgba(14, 16, 22, 0.94);
+            border: 1.5px solid rgba(212, 175, 55, 0.55);
+            border-radius: 50px;
+            padding: 8px 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 25px rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 9999;
+            animation: dockFloatAttention 3.5s ease-in-out infinite;
         }
 
-        .bottom-action.call {
-            background-color: var(--accent-blue);
-        }
-
-        .bottom-action.whatsapp {
-            background-color: var(--accent-green);
-        }
-
-        @media (min-width: 768px) {
-            .mobile-bottom-bar {
-                display: none;
+        @keyframes dockFloatAttention {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(212, 175, 55, 0.35);
+            }
+            30% {
+                transform: translateX(-50%) translateY(-8px);
+                box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 32px rgba(212, 175, 55, 0.6);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-6px) rotate(-1.5deg);
+            }
+            48% {
+                transform: translateX(-50%) translateY(-7px) rotate(1.5deg);
+            }
+            56% {
+                transform: translateX(-50%) translateY(-6px) rotate(0deg);
+            }
+            70% {
+                transform: translateX(-50%) translateY(-2px);
             }
         }
 
-        /* Floating Support/Post Button */
-        .floating-btn {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--accent-gold), var(--gold-light));
-            color: #000;
-            border-radius: 50%;
+        .dock-btn {
+            position: relative;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            z-index: 999;
-            transition: transform 0.2s;
+            gap: 7px;
+            padding: 9px 16px;
+            border-radius: 30px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
         }
 
-        .floating-btn:hover {
-            transform: scale(1.05);
+        .dock-btn:hover {
+            transform: scale(1.08) translateY(-2px);
         }
 
-        @media (min-width: 768px) {
-            .floating-btn {
-                bottom: 30px;
+        .dock-btn:active {
+            transform: scale(0.95);
+        }
+
+        .dock-btn.phone {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.45);
+            border: 1px solid rgba(147, 197, 253, 0.3);
+        }
+
+        .dock-btn.whatsapp {
+            background: linear-gradient(135deg, #15803d, #22c55e);
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.45);
+            border: 1px solid rgba(134, 239, 172, 0.3);
+            animation: waAttentionPulse 2.8s infinite;
+        }
+
+        .dock-btn.website {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.22), rgba(212, 175, 55, 0.08));
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            color: var(--accent-gold);
+        }
+
+        .dock-btn.website:hover {
+            background: linear-gradient(135deg, var(--accent-gold), #b89628);
+            color: #000;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+        }
+
+        @keyframes waAttentionPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.06);
+                box-shadow: 0 6px 22px rgba(34, 197, 94, 0.7);
+            }
+        }
+
+        @media (max-width: 580px) {
+            .bottom-center-dock {
+                bottom: 12px;
+                padding: 6px 10px;
+                gap: 6px;
+                width: calc(100% - 24px);
+                max-width: 380px;
+                justify-content: space-around;
+            }
+            .dock-btn {
+                padding: 8px 10px;
+                font-size: 11px;
+                gap: 5px;
+                flex: 1;
+                justify-content: center;
+            }
+            .dock-btn svg {
+                width: 15px;
+                height: 15px;
             }
         }
     </style>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How do I book and confirm a profile in Chandigarh?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply connect with our concierge or chosen companion via WhatsApp or Direct Call to discuss your preferred date, location, and requirements."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Are your Chandigarh companions safe and verified?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, all companions undergo verification processes to ensure authentic profiles and maximum safety and privacy."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the starting price for services in Chandigarh?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Service rates start from reasonable packages depending on duration, location, and specific companion preferences."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I contact independent companions in Chandigarh?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can connect directly via WhatsApp or telephone using the instant contact buttons provided on our website."
+            }
+        }
+    ]
+}
+</script>
 </head>
 
 <body>
+
+    <!-- Top Announcement Marquee Banner -->
+    <div class="top-announcement-bar">
+        <span class="badge-gold">✦ VERIFIED</span>
+        <div class="announcement-marquee">
+            <span class="announcement-item"><span>100% Genuine Direct Profiles</span></span>
+            <span class="announcement-item"><span class="dot">•</span><span>24/7 Verified Concierge & Discretion</span></span>
+            <span class="announcement-item"><span class="dot">•</span><span>24/7 Hotel In-Call & Home Out-Call</span></span>
+            <span class="announcement-item"><span class="dot">•</span><span>Instant WhatsApp & Direct Call Booking</span></span>
+        </div>
+    </div>
 
     <!-- 1. Header Navigation -->
     <header class="header">
@@ -736,15 +1434,32 @@
 
             <nav class="desktop-nav">
                 <a href="#">Home</a>
-                <a href="#">Categories</a>
-                <a href="#">Locations</a>
-                <a href="#" class="post-ad-btn">+ Post a Free Ad</a>
+                <a href="#profiles">Profiles</a>
+                <a href="#rates">Rates & Packages</a>
+                <a href="#searchArea">Locations</a>
+                <a href="#faq">FAQ</a>
+                <a href="tel:+916203540719" style="color: var(--accent-gold); border: 1px solid var(--accent-gold); padding: 5px 14px; border-radius: 20px; font-weight: 700; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 24/7 Helpline: +91 62035 40719</a>
             </nav>
 
-            <a href="#" class="post-ad-btn" style="display: block; @media(min-width: 768px){display: none;}">+ Post
-                Ad</a>
+            <button id="menuToggle" class="mobile-menu-btn" aria-label="Toggle navigation">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
         </div>
     </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileNav" class="mobile-nav">
+        <a href="#" class="nav-link">Home</a>
+        <a href="#profiles" class="nav-link">Profiles</a>
+        <a href="#rates" class="nav-link">Rates & Packages</a>
+        <a href="#searchArea" class="nav-link">Locations</a>
+        <a href="#faq" class="nav-link">FAQ (Frequently Asked Questions)</a>
+        <a href="tel:+916203540719" class="nav-link" style="color: var(--accent-gold); font-weight: 700;">📞 24/7 Helpline (+91 62035 40719)</a>
+    </div>
 
     <div class="sub-nav">
         <div class="container">
@@ -760,20 +1475,44 @@
                 Verified Local Services, Gigs & Classified Listings in Your City.</p>
 
             <div class="search-box">
-                <select>
-                    <option>Select City</option>
-                    <option>Chandigarh</option>
-                    <option>Mohali</option>
-                    <option>Panchkula</option>
+                <select id="searchCity">
+                    <option value="">All Cities / Regions</option>
+                    <option value="chandigarh">Chandigarh</option>
+                    <option value="mohali">Mohali</option>
+                    <option value="panchkula">Panchkula</option>
+                    <option value="zirakpur">Zirakpur</option>
                 </select>
-                <select>
-                    <option>Select Category</option>
-                    <option>Health, Wellness & Spa</option>
-                    <option>Event Staffing & Hosts</option>
-                    <option>Personal Assistants</option>
+                <select id="searchArea">
+                    <option value="">All Sectors & Local Areas</option>
+                    <option value="sector 17">Sector 17 (Chandigarh)</option>
+                    <option value="sector 35">Sector 35 (Chandigarh)</option>
+                    <option value="sector 22">Sector 22 (Chandigarh)</option>
+                    <option value="phase 7">Phase 7 (Mohali)</option>
+                    <option value="sector 5">Sector 5 (Panchkula)</option>
+                    <option value="vip road">VIP Road (Zirakpur)</option>
                 </select>
-                <input type="text" placeholder="Search keywords...">
-                <button class="search-btn">Search</button>
+                <input type="text" id="searchInput" placeholder="Search area (e.g. Sector 17, Mohali, Sector 35)...">
+                <button class="search-btn" id="searchBtn">Search Area</button>
+            </div>
+
+            <!-- Trust Stats Bar -->
+            <div class="trust-stats-bar">
+                <div class="trust-stat-item">
+                    <span class="trust-stat-num">500+</span>
+                    <span class="trust-stat-label">Verified Listings</span>
+                </div>
+                <div class="trust-stat-item">
+                    <span class="trust-stat-num">100%</span>
+                    <span class="trust-stat-label">Discreet & Safe</span>
+                </div>
+                <div class="trust-stat-item">
+                    <span class="trust-stat-num">4.9 ★</span>
+                    <span class="trust-stat-label">Top Rated</span>
+                </div>
+                <div class="trust-stat-item">
+                    <span class="trust-stat-num">24/7</span>
+                    <span class="trust-stat-label">Direct Contact</span>
+                </div>
             </div>
         </div>
     </section>
@@ -791,163 +1530,492 @@
         </div>
 
         <!-- 3. Classifieds Grid (Screenshot Structure, Midnight Gold Theme) -->
-        <div class="listings-grid">
+        <div class="listings-grid" id="profiles">
             <!-- Listing 1 -->
-            <div class="listing-card">
+            <div class="listing-card" data-city="chandigarh" data-area="sector 17" data-name="aanya">
                 <div class="listing-img-wrapper">
-                    <span class="verified-badge">VERIFIED SELLER</span>
+                    <span class="verified-badge">✓ VERIFIED SELLER</span>
+                    <span class="rating-badge">★ 4.9</span>
                     <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80"
-                        alt="Listing Image">
+                        alt="Aanya - Health & Wellness" loading="lazy">
+                    <div class="listing-img-gradient"></div>
                 </div>
                 <div class="listing-details">
-                    <div class="listing-title">Aanya - Health & Wellness</div>
+                    <div class="listing-title">Aanya</div>
+                    <div class="listing-location">📍 Sector 17 • Chandigarh</div>
                     <div class="listing-meta">
+                        <span class="meta-tag gold">Health & Wellness</span>
                         <span class="meta-tag">ID: #8492</span>
-                        <span class="meta-tag gold">Active</span>
+                        <span class="meta-tag">Active</span>
+                    </div>
+                    <div class="listing-specs">
+                        <span class="listing-spec-item"><strong>22</strong> Yrs</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item"><strong>5'5"</strong> Height</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item">Hindi / Eng</span>
                     </div>
                     <div class="listing-actions">
-                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
-                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                        <a href="tel:+916203540719" class="btn-call-small" title="Direct Phone Call">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>Call</span>
+                        </a>
+                        <a href="https://wa.me/916203540719" class="btn-wa-small" target="_blank" rel="noopener" title="WhatsApp Chat">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.33 7.35 9.07 7.42 8.87 7.64C8.61 7.93 7.88 8.61 7.88 10C7.88 11.39 8.89 12.73 9.03 12.92C9.17 13.11 11.02 15.96 13.85 17.18C16.21 18.2 16.69 17.99 17.21 17.95C17.74 17.9 18.91 17.25 19.15 16.57C19.39 15.9 19.39 15.32 19.32 15.2C19.25 15.08 19.09 15.01 18.85 14.89C18.6 14.77 17.41 14.18 17.19 14.1C16.97 14.02 16.8 13.98 16.64 14.23C16.48 14.47 16 15.08 15.84 15.26C15.68 15.45 15.52 15.47 15.27 15.35C15.03 15.23 14.25 14.97 13.33 14.15C12.61 13.51 12.13 12.72 11.98 12.48C11.84 12.23 11.97 12.1 12.09 11.98C12.2 11.87 12.33 11.7 12.46 11.55C12.58 11.4 12.62 11.29 12.71 11.13C12.79 10.96 12.75 10.82 12.69 10.7C12.62 10.58 12.06 9.21 11.83 8.65C11.6 8.11 11.37 8.18 11.21 8.17C11.06 8.16 10.89 8.16 10.73 8.16C10.56 8.16 10.29 8.22 10.06 8.47C9.84 8.71 9.53 7.35 9.53 7.35Z"/></svg>
+                            <span>WhatsApp</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Listing 2 -->
-            <div class="listing-card">
+            <div class="listing-card" data-city="chandigarh" data-area="sector 35" data-name="riya">
                 <div class="listing-img-wrapper">
-                    <span class="verified-badge" style="background: var(--phone);">VERIFIED AGENCY</span>
+                    <span class="verified-badge agency">✓ AGENCY</span>
+                    <span class="rating-badge">★ 5.0</span>
                     <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=400&q=80"
-                        alt="Listing Image">
+                        alt="Riya - Event Staffing" loading="lazy">
+                    <div class="listing-img-gradient"></div>
                 </div>
                 <div class="listing-details">
-                    <div class="listing-title">Riya - Event Staffing</div>
+                    <div class="listing-title">Riya</div>
+                    <div class="listing-location">📍 Sector 35 • Chandigarh</div>
                     <div class="listing-meta">
+                        <span class="meta-tag gold">Event Staffing</span>
                         <span class="meta-tag">ID: #9102</span>
-                        <span class="meta-tag gold">Active</span>
+                        <span class="meta-tag">Active</span>
+                    </div>
+                    <div class="listing-specs">
+                        <span class="listing-spec-item"><strong>24</strong> Yrs</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item"><strong>5'6"</strong> Height</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item">Punjabi / Hindi / Eng</span>
                     </div>
                     <div class="listing-actions">
-                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
-                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                        <a href="tel:+916203540719" class="btn-call-small" title="Direct Phone Call">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>Call</span>
+                        </a>
+                        <a href="https://wa.me/916203540719" class="btn-wa-small" target="_blank" rel="noopener" title="WhatsApp Chat">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.33 7.35 9.07 7.42 8.87 7.64C8.61 7.93 7.88 8.61 7.88 10C7.88 11.39 8.89 12.73 9.03 12.92C9.17 13.11 11.02 15.96 13.85 17.18C16.21 18.2 16.69 17.99 17.21 17.95C17.74 17.9 18.91 17.25 19.15 16.57C19.39 15.9 19.39 15.32 19.32 15.2C19.25 15.08 19.09 15.01 18.85 14.89C18.6 14.77 17.41 14.18 17.19 14.1C16.97 14.02 16.8 13.98 16.64 14.23C16.48 14.47 16 15.08 15.84 15.26C15.68 15.45 15.52 15.47 15.27 15.35C15.03 15.23 14.25 14.97 13.33 14.15C12.61 13.51 12.13 12.72 11.98 12.48C11.84 12.23 11.97 12.1 12.09 11.98C12.2 11.87 12.33 11.7 12.46 11.55C12.58 11.4 12.62 11.29 12.71 11.13C12.79 10.96 12.75 10.82 12.69 10.7C12.62 10.58 12.06 9.21 11.83 8.65C11.6 8.11 11.37 8.18 11.21 8.17C11.06 8.16 10.89 8.16 10.73 8.16C10.56 8.16 10.29 8.22 10.06 8.47C9.84 8.71 9.53 7.35 9.53 7.35Z"/></svg>
+                            <span>WhatsApp</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Listing 3 -->
-            <div class="listing-card">
+            <div class="listing-card" data-city="mohali" data-area="phase 7" data-name="meera">
                 <div class="listing-img-wrapper">
-                    <span class="verified-badge">VERIFIED SELLER</span>
+                    <span class="verified-badge">✓ VERIFIED SELLER</span>
+                    <span class="rating-badge">★ 4.9</span>
                     <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80"
-                        alt="Listing Image">
+                        alt="Meera - Personal Assistant" loading="lazy">
+                    <div class="listing-img-gradient"></div>
                 </div>
                 <div class="listing-details">
-                    <div class="listing-title">Meera - Personal Assistant</div>
+                    <div class="listing-title">Meera</div>
+                    <div class="listing-location">📍 Mohali • Phase 7</div>
                     <div class="listing-meta">
+                        <span class="meta-tag gold">Personal Assistant</span>
                         <span class="meta-tag">ID: #3321</span>
-                        <span class="meta-tag gold">Active</span>
+                        <span class="meta-tag">Active</span>
+                    </div>
+                    <div class="listing-specs">
+                        <span class="listing-spec-item"><strong>21</strong> Yrs</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item"><strong>5'4"</strong> Height</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item">Hindi / Eng</span>
                     </div>
                     <div class="listing-actions">
-                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
-                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                        <a href="tel:+916203540719" class="btn-call-small" title="Direct Phone Call">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>Call</span>
+                        </a>
+                        <a href="https://wa.me/916203540719" class="btn-wa-small" target="_blank" rel="noopener" title="WhatsApp Chat">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.33 7.35 9.07 7.42 8.87 7.64C8.61 7.93 7.88 8.61 7.88 10C7.88 11.39 8.89 12.73 9.03 12.92C9.17 13.11 11.02 15.96 13.85 17.18C16.21 18.2 16.69 17.99 17.21 17.95C17.74 17.9 18.91 17.25 19.15 16.57C19.39 15.9 19.39 15.32 19.32 15.2C19.25 15.08 19.09 15.01 18.85 14.89C18.6 14.77 17.41 14.18 17.19 14.1C16.97 14.02 16.8 13.98 16.64 14.23C16.48 14.47 16 15.08 15.84 15.26C15.68 15.45 15.52 15.47 15.27 15.35C15.03 15.23 14.25 14.97 13.33 14.15C12.61 13.51 12.13 12.72 11.98 12.48C11.84 12.23 11.97 12.1 12.09 11.98C12.2 11.87 12.33 11.7 12.46 11.55C12.58 11.4 12.62 11.29 12.71 11.13C12.79 10.96 12.75 10.82 12.69 10.7C12.62 10.58 12.06 9.21 11.83 8.65C11.6 8.11 11.37 8.18 11.21 8.17C11.06 8.16 10.89 8.16 10.73 8.16C10.56 8.16 10.29 8.22 10.06 8.47C9.84 8.71 9.53 7.35 9.53 7.35Z"/></svg>
+                            <span>WhatsApp</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
             <!-- Listing 4 -->
-            <div class="listing-card">
+            <div class="listing-card" data-city="panchkula" data-area="sector 5" data-name="kavya">
                 <div class="listing-img-wrapper">
-                    <span class="verified-badge">VERIFIED SELLER</span>
+                    <span class="verified-badge">✓ VERIFIED SELLER</span>
+                    <span class="rating-badge">★ 4.8</span>
                     <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80"
-                        alt="Listing Image">
+                        alt="Kavya - Social Events" loading="lazy">
+                    <div class="listing-img-gradient"></div>
                 </div>
                 <div class="listing-details">
-                    <div class="listing-title">Kavya - Social Events</div>
+                    <div class="listing-title">Kavya</div>
+                    <div class="listing-location">📍 Panchkula • Sector 5</div>
                     <div class="listing-meta">
+                        <span class="meta-tag gold">Social Events</span>
                         <span class="meta-tag">ID: #5512</span>
-                        <span class="meta-tag gold">Active</span>
+                        <span class="meta-tag">Active</span>
+                    </div>
+                    <div class="listing-specs">
+                        <span class="listing-spec-item"><strong>23</strong> Yrs</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item"><strong>5'5"</strong> Height</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item">Hindi / Eng</span>
                     </div>
                     <div class="listing-actions">
-                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
-                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                        <a href="tel:+916203540719" class="btn-call-small" title="Direct Phone Call">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>Call</span>
+                        </a>
+                        <a href="https://wa.me/916203540719" class="btn-wa-small" target="_blank" rel="noopener" title="WhatsApp Chat">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.33 7.35 9.07 7.42 8.87 7.64C8.61 7.93 7.88 8.61 7.88 10C7.88 11.39 8.89 12.73 9.03 12.92C9.17 13.11 11.02 15.96 13.85 17.18C16.21 18.2 16.69 17.99 17.21 17.95C17.74 17.9 18.91 17.25 19.15 16.57C19.39 15.9 19.39 15.32 19.32 15.2C19.25 15.08 19.09 15.01 18.85 14.89C18.6 14.77 17.41 14.18 17.19 14.1C16.97 14.02 16.8 13.98 16.64 14.23C16.48 14.47 16 15.08 15.84 15.26C15.68 15.45 15.52 15.47 15.27 15.35C15.03 15.23 14.25 14.97 13.33 14.15C12.61 13.51 12.13 12.72 11.98 12.48C11.84 12.23 11.97 12.1 12.09 11.98C12.2 11.87 12.33 11.7 12.46 11.55C12.58 11.4 12.62 11.29 12.71 11.13C12.79 10.96 12.75 10.82 12.69 10.7C12.62 10.58 12.06 9.21 11.83 8.65C11.6 8.11 11.37 8.18 11.21 8.17C11.06 8.16 10.89 8.16 10.73 8.16C10.56 8.16 10.29 8.22 10.06 8.47C9.84 8.71 9.53 7.35 9.53 7.35Z"/></svg>
+                            <span>WhatsApp</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Generate a few more to populate the grid -->
-            <div class="listing-card">
+            <!-- Listing 5 -->
+            <div class="listing-card" data-city="zirakpur" data-area="vip road" data-name="tara">
                 <div class="listing-img-wrapper">
-                    <span class="verified-badge" style="background: var(--phone);">VERIFIED AGENCY</span>
+                    <span class="verified-badge agency">✓ AGENCY</span>
+                    <span class="rating-badge">★ 4.9</span>
                     <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80"
-                        alt="Listing Image">
+                        alt="Tara - Wellness & Spa" loading="lazy">
+                    <div class="listing-img-gradient"></div>
                 </div>
                 <div class="listing-details">
-                    <div class="listing-title">Tara - Wellness & Spa</div>
+                    <div class="listing-title">Tara</div>
+                    <div class="listing-location">📍 Zirakpur • VIP Road</div>
                     <div class="listing-meta">
+                        <span class="meta-tag gold">Wellness & Spa</span>
                         <span class="meta-tag">ID: #7721</span>
-                        <span class="meta-tag gold">Active</span>
+                        <span class="meta-tag">Active</span>
+                    </div>
+                    <div class="listing-specs">
+                        <span class="listing-spec-item"><strong>25</strong> Yrs</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item"><strong>5'7"</strong> Height</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item">Russian / Eng</span>
                     </div>
                     <div class="listing-actions">
-                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
-                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                        <a href="tel:+916203540719" class="btn-call-small" title="Direct Phone Call">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>Call</span>
+                        </a>
+                        <a href="https://wa.me/916203540719" class="btn-wa-small" target="_blank" rel="noopener" title="WhatsApp Chat">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.33 7.35 9.07 7.42 8.87 7.64C8.61 7.93 7.88 8.61 7.88 10C7.88 11.39 8.89 12.73 9.03 12.92C9.17 13.11 11.02 15.96 13.85 17.18C16.21 18.2 16.69 17.99 17.21 17.95C17.74 17.9 18.91 17.25 19.15 16.57C19.39 15.9 19.39 15.32 19.32 15.2C19.25 15.08 19.09 15.01 18.85 14.89C18.6 14.77 17.41 14.18 17.19 14.1C16.97 14.02 16.8 13.98 16.64 14.23C16.48 14.47 16 15.08 15.84 15.26C15.68 15.45 15.52 15.47 15.27 15.35C15.03 15.23 14.25 14.97 13.33 14.15C12.61 13.51 12.13 12.72 11.98 12.48C11.84 12.23 11.97 12.1 12.09 11.98C12.2 11.87 12.33 11.7 12.46 11.55C12.58 11.4 12.62 11.29 12.71 11.13C12.79 10.96 12.75 10.82 12.69 10.7C12.62 10.58 12.06 9.21 11.83 8.65C11.6 8.11 11.37 8.18 11.21 8.17C11.06 8.16 10.89 8.16 10.73 8.16C10.56 8.16 10.29 8.22 10.06 8.47C9.84 8.71 9.53 7.35 9.53 7.35Z"/></svg>
+                            <span>WhatsApp</span>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="listing-card">
+            <!-- Listing 6 -->
+            <div class="listing-card" data-city="chandigarh" data-area="sector 22" data-name="naina">
                 <div class="listing-img-wrapper">
-                    <span class="verified-badge">VERIFIED SELLER</span>
+                    <span class="verified-badge">✓ VERIFIED SELLER</span>
+                    <span class="rating-badge">★ 5.0</span>
                     <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80"
-                        alt="Listing Image">
+                        alt="Naina - Event Gigs" loading="lazy">
+                    <div class="listing-img-gradient"></div>
                 </div>
                 <div class="listing-details">
-                    <div class="listing-title">Naina - Event Gigs</div>
+                    <div class="listing-title">Naina</div>
+                    <div class="listing-location">📍 Sector 22 • Chandigarh</div>
                     <div class="listing-meta">
+                        <span class="meta-tag gold">Event Gigs</span>
                         <span class="meta-tag">ID: #8890</span>
-                        <span class="meta-tag gold">Active</span>
+                        <span class="meta-tag">Active</span>
+                    </div>
+                    <div class="listing-specs">
+                        <span class="listing-spec-item"><strong>22</strong> Yrs</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item"><strong>5'4"</strong> Height</span>
+                        <span class="listing-spec-divider">•</span>
+                        <span class="listing-spec-item">Punjabi / Hindi</span>
                     </div>
                     <div class="listing-actions">
-                        <a href="tel:+910000000000" class="btn-call-small">Show Contact</a>
-                        <a href="https://wa.me/910000000000" class="btn-wa-small">Chat with Poster</a>
+                        <a href="tel:+916203540719" class="btn-call-small" title="Direct Phone Call">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>Call</span>
+                        </a>
+                        <a href="https://wa.me/916203540719" class="btn-wa-small" target="_blank" rel="noopener" title="WhatsApp Chat">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.33 7.35 9.07 7.42 8.87 7.64C8.61 7.93 7.88 8.61 7.88 10C7.88 11.39 8.89 12.73 9.03 12.92C9.17 13.11 11.02 15.96 13.85 17.18C16.21 18.2 16.69 17.99 17.21 17.95C17.74 17.9 18.91 17.25 19.15 16.57C19.39 15.9 19.39 15.32 19.32 15.2C19.25 15.08 19.09 15.01 18.85 14.89C18.6 14.77 17.41 14.18 17.19 14.1C16.97 14.02 16.8 13.98 16.64 14.23C16.48 14.47 16 15.08 15.84 15.26C15.68 15.45 15.52 15.47 15.27 15.35C15.03 15.23 14.25 14.97 13.33 14.15C12.61 13.51 12.13 12.72 11.98 12.48C11.84 12.23 11.97 12.1 12.09 11.98C12.2 11.87 12.33 11.7 12.46 11.55C12.58 11.4 12.62 11.29 12.71 11.13C12.79 10.96 12.75 10.82 12.69 10.7C12.62 10.58 12.06 9.21 11.83 8.65C11.6 8.11 11.37 8.18 11.21 8.17C11.06 8.16 10.89 8.16 10.73 8.16C10.56 8.16 10.29 8.22 10.06 8.47C9.84 8.71 9.53 7.35 9.53 7.35Z"/></svg>
+                            <span>WhatsApp</span>
+                        </a>
                     </div>
                 </div>
+            </div>
+
+            <!-- No results message -->
+            <div id="noResultsMsg" style="display:none; grid-column: 1 / -1; text-align: center; padding: 40px 20px; background: var(--surface); border: 1px dashed var(--border); border-radius: 8px; margin: 10px 0;">
+                <div style="font-size: 2rem; margin-bottom: 8px;">🔍</div>
+                <div style="font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: 6px;">No profiles found in this area</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;">Try selecting "All Cities" or "All Sectors" to view all verified profiles in Tricity.</div>
+                <button type="button" id="resetSearchBtn" style="background: var(--accent-gold); color: #000; border: none; padding: 9px 20px; border-radius: 20px; font-weight: 700; cursor: pointer;">Show All Profiles</button>
             </div>
         </div>
 
         <!-- Render Target for Admin Editor Content -->
         <div id="dynamicContentTarget"></div>
 
+        <!-- 4. Rates & Packages Section (Luxury 3-Card Design Inspired by Pune Yrr) -->
+        <section class="rates-section" id="rates">
+            <div class="section-header-rates">
+                <span class="rates-eyebrow">Transparent Tariffs</span>
+                <h2 class="rates-title">Chandigarh VIP Companion <span>Rate Chart & Packages</span></h2>
+                <p class="rates-subtitle">
+                    Clear, transparent pricing with zero hidden surcharges. All packages include complimentary executive vehicle transit across Chandigarh, Mohali, Panchkula & Zirakpur.
+                </p>
+            </div>
+
+            <div class="rates-grid">
+                <!-- Card 1: Elite Tricity Companions -->
+                <div class="rate-card">
+                    <div class="rate-header">
+                        <h3 class="rate-category-name">Elite Tricity Companions</h3>
+                        <p class="rate-category-subtitle">College Stars, Fashion Models & Corporate Hostesses</p>
+                    </div>
+                    <div class="rate-table-wrapper">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>Companion Profile</th>
+                                    <th>Investment (INR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="service-name">Aanya (College Star • Sec 17)</td>
+                                    <td class="price-val">₹5,000 – ₹8,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Riya (Glamour Hostess • Sec 35)</td>
+                                    <td class="price-val">₹6,000 – ₹12,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Priya (Corporate Model • Mohali)</td>
+                                    <td class="price-val">₹7,000 – ₹15,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Simran (Runway Model • Panchkula)</td>
+                                    <td class="price-val">₹10,000 – ₹17,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Sonia (Celebrity VIP Escort)</td>
+                                    <td class="price-val">₹15,000 – ₹25,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="rate-card-footer">
+                        <a href="https://wa.me/916203540719?text=I%20want%20to%20book%20an%20Elite%20Chandigarh%20Companion." target="_blank" rel="noopener" class="rate-btn-wa">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.33 7.35 9.07 7.42 8.87 7.64C8.61 7.93 7.88 8.61 7.88 10C7.88 11.39 8.89 12.73 9.03 12.92C9.17 13.11 11.02 15.96 13.85 17.18C16.21 18.2 16.69 17.99 17.21 17.95C17.74 17.9 18.91 17.25 19.15 16.57C19.39 15.9 19.39 15.32 19.32 15.2C19.25 15.08 19.09 15.01 18.85 14.89C18.6 14.77 17.41 14.18 17.19 14.1C16.97 14.02 16.8 13.98 16.64 14.23C16.48 14.47 16 15.08 15.84 15.26C15.68 15.45 15.52 15.47 15.27 15.35C15.03 15.23 14.25 14.97 13.33 14.15C12.61 13.51 12.13 12.72 11.98 12.48C11.84 12.23 11.97 12.1 12.09 11.98C12.2 11.87 12.33 11.7 12.46 11.55C12.58 11.4 12.62 11.29 12.71 11.13C12.79 10.96 12.75 10.82 12.69 10.7C12.62 10.58 12.06 9.21 11.83 8.65C11.6 8.11 11.37 8.18 11.21 8.17C11.06 8.16 10.89 8.16 10.73 8.16C10.56 8.16 10.29 8.22 10.06 8.47C9.84 8.71 9.53 7.35 9.53 7.35Z"/></svg>
+                            <span>Book Elite Companion</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: International & Russian Models (Featured) -->
+                <div class="rate-card featured">
+                    <div class="rate-featured-ribbon">⭐ Most Popular in Tricity</div>
+                    <div class="rate-header">
+                        <h3 class="rate-category-name">International & Russian Models</h3>
+                        <p class="rate-category-subtitle">Exotic European, Ukrainian & Caucasian VIP Hostesses</p>
+                    </div>
+                    <div class="rate-table-wrapper">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>Duration / Service</th>
+                                    <th>Standard Tariff</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="service-name">Express Date (1-2 Hours)</td>
+                                    <td class="price-val">₹8,000 – ₹12,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Two-Hour Executive Session</td>
+                                    <td class="price-val">₹12,000 – ₹16,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Evening Dinner & Lounge (4 Hrs)</td>
+                                    <td class="price-val">₹18,000 – ₹22,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Full Night VIP Arrangement</td>
+                                    <td class="price-val">₹25,000 – ₹35,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Weekend Travel Companion</td>
+                                    <td class="price-val">Custom Quote</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="rate-card-footer">
+                        <a href="https://wa.me/916203540719?text=I%20want%20to%20book%20an%20International%20Russian%20Model%20in%20Chandigarh." target="_blank" rel="noopener" class="rate-btn-gold">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5v-2z"/></svg>
+                            <span>Reserve International Model</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Sophisticated Mature Companions -->
+                <div class="rate-card">
+                    <div class="rate-header">
+                        <h3 class="rate-category-name">Sophisticated Mature Companions</h3>
+                        <p class="rate-category-subtitle">Warm, Loving & Emotionally Intelligent Partners</p>
+                    </div>
+                    <div class="rate-table-wrapper">
+                        <table class="rate-table">
+                            <thead>
+                                <tr>
+                                    <th>Companion Profile</th>
+                                    <th>Tariff (INR)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="service-name">Anshika (High-Class Socialite)</td>
+                                    <td class="price-val">₹4,000 – ₹10,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Paayal (Mature Air Hostess)</td>
+                                    <td class="price-val">₹6,000 – ₹13,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Neetu (Independent Homemaker)</td>
+                                    <td class="price-val">₹7,000 – ₹15,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Madhu (Refined Private Escort)</td>
+                                    <td class="price-val">₹9,000 – ₹16,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="service-name">Tara (Executive VIP Partner)</td>
+                                    <td class="price-val">₹8,000 – ₹14,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="rate-card-footer">
+                        <a href="tel:+916203540719" class="rate-btn-call">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>Call For Instant Booking</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="content-block" style="margin-top: 30px;">
-            <h1 style="color: var(--accent-gold); margin-bottom: 30px; text-align: center;">Call Girls in Chandigarh
-            </h1>
+            <h2 style="color: var(--accent-gold); margin-bottom: 30px; text-align: center;">Call Girls & Local Escort Services in Chandigarh</h2>
+            
+            <!-- Rental Girlfriend in Chandigarh Section -->
+            <div style="margin-bottom: 40px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 10px; padding: 24px;">
+                <h2 style="margin-bottom: 15px; color: var(--accent-gold);">Rental Girlfriend in Chandigarh — Companionship for Events, Dates & Personal Time</h2>
+                <p style="margin-bottom: 16px; line-height: 1.6;">Are you looking for a charming, polite, and well-groomed companion to accompany you to high-profile social events, corporate gatherings, weddings, or an intimate dinner date? Our <strong>rental girlfriend in Chandigarh</strong> service gives you the freedom to rent a verified, elegant companion who seamlessly fits into any environment. Whether you need a confident date for an upcoming evening or someone to share relaxed, pleasant moments with in Tricity, our companions provide unmatched grace and warmth.</p>
+                <p style="margin-bottom: 16px; line-height: 1.6;">When you choose a <strong>rental girlfriend in Chandigarh</strong>, you get more than just an event companion—you gain a supportive temporary partner who actively listens to you, offers genuine advice, understands your perspective, and acts as your dedicated date. From fine dining in Sector 17 and Sector 35 to quiet city strolls or private celebrations, our companions ensure you feel valued, respected, and completely comfortable at all times.</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 18px;">
+                    <div style="background: var(--surface); border: 1px solid var(--border); padding: 14px 16px; border-radius: 8px;">
+                        <div style="color: var(--accent-gold); font-weight: 700; font-size: 13px; margin-bottom: 5px;">🎉 Event & Wedding Partner</div>
+                        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">An articulate, elegant date who enhances your presence at parties, functions, and dinners.</div>
+                    </div>
+                    <div style="background: var(--surface); border: 1px solid var(--border); padding: 14px 16px; border-radius: 8px;">
+                        <div style="color: var(--accent-gold); font-weight: 700; font-size: 13px; margin-bottom: 5px;">💬 Thoughtful Listener & Friend</div>
+                        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">A caring partner who listens patiently, relieves stress, and gives thoughtful emotional advice.</div>
+                    </div>
+                    <div style="background: var(--surface); border: 1px solid var(--border); padding: 14px 16px; border-radius: 8px;">
+                        <div style="color: var(--accent-gold); font-weight: 700; font-size: 13px; margin-bottom: 5px;">🔒 100% Discretion & Privacy</div>
+                        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Complete confidentiality guaranteed with quick direct communication via WhatsApp or Call.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Find & Reach the Right Companion Section -->
+            <div style="margin-bottom: 40px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 10px; padding: 24px;">
+                <h2 style="margin-bottom: 15px; color: var(--accent-gold);">Looking for Company in Chandigarh? How to Find the Right Person to Hang Out With</h2>
+                <p style="margin-bottom: 16px; line-height: 1.6;">Living in or visiting Chandigarh on your own can feel surprisingly quiet. Whether you are in town on a corporate trip to Mohali, attending a high-profile weekend party, or just tired of spending your evenings alone, wanting good company is completely natural.</p>
+                <p style="margin-bottom: 16px; line-height: 1.6;">Attending an upscale dinner alone or having nobody to unwind with after a heavy week isn't fun. Sometimes, all you really need is an easygoing, articulate companion by your side—someone who dresses sharp, carries a conversation effortlessly, and makes you feel completely at ease wherever you go.</p>
+                <p style="margin-bottom: 16px; line-height: 1.6;">If you are looking to connect with someone genuine in Chandigarh, Panchkula, or Mohali, here is how the process works from start to finish:</p>
+                
+                <div style="margin: 20px 0; display: flex; flex-direction: column; gap: 14px;">
+                    <div style="background: var(--surface); border-left: 3px solid var(--accent-gold); padding: 14px 18px; border-radius: 0 8px 8px 0;">
+                        <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px; font-weight: 600;">1. Pick the Vibe That Fits Your Day</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Every outing is different. You might want a polished plus-one for a wedding or family function, a confident partner for cocktails in Sector 26, or simply someone attentive to sit with over coffee in Sector 35 and listen without judgment. Know what kind of evening you want before browsing.</p>
+                    </div>
+                    <div style="background: var(--surface); border-left: 3px solid var(--accent-gold); padding: 14px 18px; border-radius: 0 8px 8px 0;">
+                        <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px; font-weight: 600;">2. Browse Verified Local Profiles</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Instead of guessing, browse through our verified profiles. You can check genuine pictures, basic details (age, height, languages spoken), and preferred locations across Tricity so you know exactly who you are connecting with.</p>
+                    </div>
+                    <div style="background: var(--surface); border-left: 3px solid var(--accent-gold); padding: 14px 18px; border-radius: 0 8px 8px 0;">
+                        <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px; font-weight: 600;">3. Reach Out Directly—No Middlemen</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Found someone whose personality and style match your plans? Hit the <strong>WhatsApp</strong> or <strong>Call</strong> button on her card. You talk straight to the person, which means zero confusion and instant confirmation.</p>
+                    </div>
+                    <div style="background: var(--surface); border-left: 3px solid var(--accent-gold); padding: 14px 18px; border-radius: 0 8px 8px 0;">
+                        <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px; font-weight: 600;">4. Be Clear and Respectful About Your Plans</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0;">A quick, polite message goes a long way. Share your preferred day, time, the location (hotel dinner, cafe, party venue), and how many hours you’d like to spend together. Mutual clarity ensures everything goes smoothly.</p>
+                    </div>
+                    <div style="background: var(--surface); border-left: 3px solid var(--accent-gold); padding: 14px 18px; border-radius: 0 8px 8px 0;">
+                        <h3 style="font-size: 1rem; color: #fff; margin-bottom: 6px; font-weight: 600;">5. Smooth & Private Confirmation</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin: 0;">Once your date, time, and venue are finalized with your companion, simply confirm your schedule. Everything is arranged with total confidentiality and professional etiquette for a memorable experience.</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 18px;">
+                    <div style="background: var(--surface); border: 1px solid var(--border); padding: 14px 16px; border-radius: 8px;">
+                        <div style="color: var(--accent-gold); font-weight: 700; font-size: 13px; margin-bottom: 5px;">🥂 Social & Event Companion</div>
+                        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">An articulate, elegant plus-one for corporate dinners, weddings, and private gatherings.</div>
+                    </div>
+                    <div style="background: var(--surface); border: 1px solid var(--border); padding: 14px 16px; border-radius: 8px;">
+                        <div style="color: var(--accent-gold); font-weight: 700; font-size: 13px; margin-bottom: 5px;">☕ Relaxed Hangouts & Great Talks</div>
+                        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Casual dates, cafe meetups, or quiet evenings with someone who genuinely listens and relates.</div>
+                    </div>
+                    <div style="background: var(--surface); border: 1px solid var(--border); padding: 14px 16px; border-radius: 8px;">
+                        <div style="color: var(--accent-gold); font-weight: 700; font-size: 13px; margin-bottom: 5px;">🛡️ 100% Discretion & Safe Meetups</div>
+                        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.5;">Direct communication, total personal privacy, and verified professional companionship.</div>
+                    </div>
+                </div>
+            </div>
+
             <div style="margin-bottom: 40px;">
-                <h2 style="margin-bottom: 15px;">Call Girls in Chandigarh without any Advance- Cash on Delivery</h2>
+                <h2 style="margin-bottom: 15px;">Call Girls in Chandigarh — Premium & Verified Profiles</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">In the lively city of Chandigarh, where loneliness,
                     stress, and moments of isolation can sometimes become difficult, having a companion can bring some
-                    happiness and comfort into your life. Our exclusive and premium &lt;strong&gt;Chandigarh call
-                    girl&lt;/strong&gt; service provides dedicated, &lt;strong&gt;professional call girls in
-                    Chandigarh&lt;/strong&gt; who are committed to making your time enjoyable and satisfying. These
+                    happiness and comfort into your life. Our exclusive and premium <strong>Chandigarh call
+                    girl</strong> service provides dedicated, <strong>professional call girls in
+                    Chandigarh</strong> who are committed to making your time enjoyable and satisfying. These
                     caring young women offer more than simple companionship, creating a romantic experience that can
                     leave you feeling refreshed.</p>
-                <p style="margin-bottom: 16px; line-height: 1.6;">Our &lt;a href='chandigarhLYF'&gt;Chandigarh call
-                    girls&lt;/a&gt; are young, cheerful women living independently in Chandigarh and known for their
+                <p style="margin-bottom: 16px; line-height: 1.6;">Our <a href="#">Chandigarh call
+                    girls</a> are young, cheerful women living independently in Chandigarh and known for their
                     beauty, style, and modern lifestyle. Coming from different backgrounds and comfortable with
                     contemporary living, they are professionally available to meet different companionship preferences.
                     Whether you are interested in a relaxing massage, private intimacy, or simply spending time with a
                     romantic and attentive female companion, these girls aim to provide a comfortable and satisfying
-                    experience. With regular health checkups, our &lt;strong&gt;Chandigarh call girl
-                    services&lt;/strong&gt; place importance on safety and quality while helping clients enjoy a private
+                    experience. With regular health checkups, our <strong>Chandigarh call girl
+                    services</strong> place importance on safety and quality while helping clients enjoy a private
                     meeting with a professional call girl in Chandigarh.</p>
             </div>
             <div style="margin-bottom: 40px;">
                 <h2 style="margin-bottom: 15px;">Fulfill Your Sexual Desires with Chandigarh Call Girl Service</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">For people looking to turn their fantasies into
                     reality, Aroohii call girl service in Chandigarh provides a range of high-class call girls in
-                    Chandigarh to choose from. Our &lt;a href='chandigarhLYF'&gt;Independent Chandigarh call
-                    girls&lt;/a&gt; include glamorous, fashionable, and attractive women such as beautiful curvy models,
+                    Chandigarh to choose from. Our <a href="#">Independent Chandigarh call
+                    girls</a> include glamorous, fashionable, and attractive women such as beautiful curvy models,
                     curvaceous college girls, attractive housewives, sophisticated air hostesses, and glamorous
                     celebrity-style call girls.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Whether you are searching for body-to-body massage
-                    services in Chandigarh, a one-night arrangement, or a hookup partner, our educated &lt;a
-                    href='chandigarhLYF'&gt;call girls in Chandigarh&lt;/a&gt; offer private experiences based on your
+                    services in Chandigarh, a one-night arrangement, or a hookup partner, our educated <a href="#profiles" style="color: var(--accent-gold); font-weight: 600; text-decoration: underline;">call girls in Chandigarh</a> offer private experiences based on your
                     preferences. These attractive models and college girls can also provide a girlfriend-style
                     experience in Chandigarh, giving clients the opportunity to enjoy companionship with passion and
                     sophistication.</p>
@@ -956,12 +2024,12 @@
                 <h2 style="margin-bottom: 15px;">Experience the Charm of Independent Call Girls Chandigarh</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Our Independent Chandigarh call girls are appreciated
                     for their beauty, fashion, dedication, skills, and confident attitude, providing premium
-                    companionship for clients looking for something special. These professional &lt;strong&gt;Chandigarh
-                    female call girls&lt;/strong&gt; offer luxurious entertainment while catering to different sensual
+                    companionship for clients looking for something special. These professional <strong>Chandigarh
+                    female call girls</strong> offer luxurious entertainment while catering to different sensual
                     preferences with confidence and experience.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Whether you are interested in spending a romantic
-                    night together or looking for a girlfriend experience, our female &lt;a href='chandigarhLYF'&gt;call
-                    girls in Chandigarh&lt;/a&gt; are available for private companionship. They can meet clients during
+                    night together or looking for a girlfriend experience, our female <a href="#">call
+                    girls in Chandigarh</a> are available for private companionship. They can meet clients during
                     the day or at night, creating a warm and welcoming atmosphere that makes the meeting memorable.
                     Picture the youthful college call girls in Chandigarh, with their charming personalities, attractive
                     appearance, and lively energy.</p>
@@ -1014,12 +2082,12 @@
                 <h2 style="margin-bottom: 15px;">कमुख Massage service in Chandigarh और दिलचस्प लडकिया</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Chandigarh ke bustling nightlife aur crowded streets
                     mein apni मनपसंद companionship ya intimacy तलाश करना kabhi-kabhi ek challenge ho sakta hai. Par
-                    &lt;strong&gt;chandigarhLYF&lt;/strong&gt; ke saath, hum aapke liye budget-friendly call girl
+                    <strong>chandigarhLYF</strong> ke saath, hum aapke liye budget-friendly call girl
                     services in Chandigarh laaye hain jo aapke mood ko बेहतर बना सकती हैं. Hamari sensual
-                    &lt;strong&gt;female call girls in Chandigarh&lt;/strong&gt; aapko ek refreshing escape provide
+                    <strong>female call girls in Chandigarh</strong> aapko ek refreshing escape provide
                     karti hain, jisme कामुक massage ka maza aur personalized companionship ka experience shamil hai.</p>
-                <p style="margin-bottom: 16px; line-height: 1.6;">From &lt;strong&gt;independent hot call girls in
-                    Chandigarh&lt;/strong&gt; to selected beautiful girls, hum aapko ek attractive sexual partner choose
+                <p style="margin-bottom: 16px; line-height: 1.6;">From <strong>independent hot call girls in
+                    Chandigarh</strong> to selected beautiful girls, hum aapko ek attractive sexual partner choose
                     karne ka option dete hain jo aapki expectations ke according ho. Chahe handjob services ho ya
                     sensual wife experience, our services ka aim hai ki aap apna waqt enjoy karein bina unnecessary
                     extra expense ke.</p>
@@ -1031,8 +2099,7 @@
                     </div>
                     <div class="faq-answer"><span class="faq-a-badge">A</span>
                         <div style="flex: 1 1 0%;">
-                            <p style="margin-top: 0px; margin-bottom: 12px; line-height: 1.6;">Hamari &lt;a
-                                href='chandigarhLYF'&gt;call girls in Chandigarh&lt;/a&gt; sirf professional hi nahi
+                            <p style="margin-top: 0px; margin-bottom: 12px; line-height: 1.6;">Hamari <a href="#profiles" style="color: var(--accent-gold); font-weight: 600; text-decoration: underline;">call girls in Chandigarh</a> sirf professional hi nahi
                                 hain, balki warm, engaging aur aapki khushi ke liye dedicated bhi hain. Ye top
                                 independent call girls in Chandigarh aapki boring evening ko ek unforgettable experience
                                 mein badal sakti hain, offering a girlfriend-like vibe ya ek female friend ke saath raat
@@ -1042,7 +2109,7 @@
                                 preference ke according companionship provide karti hain. Available 24/7, ye hot ladies
                                 bas ek WhatsApp number ki दूरी par hain, ready to make your Chandigarh trip memorable
                                 with their attractive figure aur exquisite personality. Abhi book karein aur dekhein
-                                kyun &lt;strong&gt;chandigarhLYF&lt;/strong&gt; ko clients Chandigarh mein private
+                                kyun <strong>chandigarhLYF</strong> ko clients Chandigarh mein private
                                 companionship ke liye choose karte hain.</p>
                         </div>
                     </div>
@@ -1059,7 +2126,7 @@
                                 personalized and professional experiences, Independent Female Call Girls Services in
                                 Chandigarh provide call girl services according to different client requirements. From
                                 charming housewife call girls services to other specialized profiles, these verified
-                                &lt;a href='chandigarhLYF'&gt;call girls in Chandigarh&lt;/a&gt; offer a combination of
+                                <a href="#">call girls in Chandigarh</a> offer a combination of
                                 pleasure, companionship, and excitement.</p>
                             <p style="margin-top: 0px; margin-bottom: 12px; line-height: 1.6;">With an emphasis on
                                 creating a memorable girlfriend experience, our professional Chandigarh female escorts
@@ -1073,12 +2140,12 @@
             <div style="margin-bottom: 40px;">
                 <h2 style="margin-bottom: 15px;">Discover the Sensual attraction of Call Girls in Chandigarh</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Chandigarh, known for its modern lifestyle and vibrant
-                    surroundings, offers a different experience for people looking for sensual &lt;strong&gt;call girls
-                    in Chandigarh&lt;/strong&gt;. Whether you prefer South Indian call girls, Asian call girls, or North
+                    surroundings, offers a different experience for people looking for sensual <strong>call girls
+                    in Chandigarh</strong>. Whether you prefer South Indian call girls, Asian call girls, or North
                     Indian call girls, these charming and attractive Chandigarh call girls cater to different
                     preferences.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">With attention to safe sex practices and reducing
-                    potential health risks, these &lt;strong&gt;independent Chandigarh call girls&lt;/strong&gt; provide
+                    potential health risks, these <strong>independent Chandigarh call girls</strong> provide
                     erotic services including striptease, Kama Sutra positions, and even threesomes. Explore their
                     photos and profiles to find your preferred companion, with discreet and professional arrangements
                     available through same-day booking.</p>
@@ -1091,13 +2158,13 @@
                     <div class="faq-answer"><span class="faq-a-badge">A</span>
                         <div style="flex: 1 1 0%;">
                             <p style="margin-top: 0px; margin-bottom: 12px; line-height: 1.6;">For those searching for
-                                an unforgettable partner, attractive &lt;a href='chandigarhLYF'&gt;call girls in
-                                Chandigarh&lt;/a&gt; provide high-quality call girl services. These high-profile call
+                                an unforgettable partner, attractive <a href="#">call girls in
+                                Chandigarh</a> provide high-quality call girl services. These high-profile call
                                 girls can offer a thrilling threesome in Chandigarh or personalized adult entertainment
                                 with Chandigarh call girls.</p>
                             <p style="margin-top: 0px; margin-bottom: 12px; line-height: 1.6;">Known for their glamorous
                                 appearance and attractive personalities, these professional call girls provide
-                                &lt;strong&gt;call girls in Chandigarh&lt;/strong&gt; who can create a distinctive
+                                <strong>call girls in Chandigarh</strong> who can create a distinctive
                                 private experience. Whether you are searching through call girl services in Chandigarh
                                 or looking for a high-profile Chandigarh call girl, these charming women aim to make
                                 every meeting exciting and memorable. Profiles include actual, unedited images and
@@ -1149,16 +2216,16 @@
             <div style="margin-bottom: 40px;">
                 <h2 style="margin-bottom: 15px;">Experience physical love with Housewife Call Girls in Chandigarh</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Enter a world of physical love with sensual female
-                    &lt;a href='chandigarhLYF'&gt;call girls in Chandigarh&lt;/a&gt;, where passion and companionship
+                    <a href="#">call girls in Chandigarh</a>, where passion and companionship
                     come together. These selected beautiful girls include the best housewife call girls in Chandigarh
                     and independent hot call girls in Chandigarh, offering clients a memorable sexual experience.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">With attractive figures and a range of intimate
-                    activities, these hot ladies provide &lt;strong&gt;call girls services in Chandigarh&lt;/strong&gt;
+                    activities, these hot ladies provide <strong>call girls services in Chandigarh</strong>
                     according to your preferences, from handjob services to exploring positions of sex or enjoying a
                     sensual wife experience.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">At Chandigarh's independent erotic service, you can
                     openly communicate your preferences and enjoy private companionship. Don't hesitate to express your
-                    sexual desires to a top &lt;a href='chandigarhLYF'&gt;independent call girl in Chandigarh&lt;/a&gt;
+                    sexual desires to a top <a href="#">independent call girl in Chandigarh</a>
                     through a trusted call girl agency, allowing you to enjoy sexual pleasure and private time with an
                     attractive sexual partner.</p>
             </div>
@@ -1166,10 +2233,10 @@
                 <h2 style="margin-bottom: 15px;">Connect with Sensual Independent Call Girls in Chandigarh for an
                     Unforgettable Experience</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Planning a Chandigarh trip? Make it more memorable
-                    with the &lt;strong&gt;independent Chandigarh call girls&lt;/strong&gt; who offer entertainment and
+                    with the <strong>independent Chandigarh call girls</strong> who offer entertainment and
                     companionship. Whether you are looking for a girlfriend for friendship or conversation, a sexual
                     partner for pleasure, or an attractive companion for a private or business party, the
-                    &lt;strong&gt;call girl services in Chandigarh&lt;/strong&gt; provide different choices.</p>
+                    <strong>call girl services in Chandigarh</strong> provide different choices.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Explore our call girl gallery and find a suitable girl
                     from the available professional and experienced profiles. The collection includes sensual
                     independent call girls who are ready to provide an exciting experience. For those interested in
@@ -1182,13 +2249,13 @@
             <div style="margin-bottom: 40px;">
                 <h2 style="margin-bottom: 15px;">Have Fun With 100% Real Beautiful And Stylish Call Girls near
                     Chandigarh</h2>
-                <p style="margin-bottom: 16px; line-height: 1.6;">Our &lt;a href='chandigarhLYF'&gt;high-profile call
-                    girls in Chandigarh&lt;/a&gt; are known for their style, confidence, and sexiness. They can make
+                <p style="margin-bottom: 16px; line-height: 1.6;">Our <a href="#">high-profile call
+                    girls in Chandigarh</a> are known for their style, confidence, and sexiness. They can make
                     every meeting feel special, including private meetings at luxurious 5-star hotels. Their elegant
                     dressing and confident behaviour create an atmosphere filled with excitement and attraction.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">Their confidence and charm can make your time more
-                    enjoyable while creating a sense of genuine connection. &lt;a href='chandigarhLYF'&gt;VIP call
-                    girls&lt;/a&gt; are known for trust, privacy, and safety. These premium girls are suitable for men
+                    enjoyable while creating a sense of genuine connection. <a href="#">VIP call
+                    girls</a> are known for trust, privacy, and safety. These premium girls are suitable for men
                     who prefer luxury and discretion. Our VIP Chandigarh call girl service is designed to make your
                     private moments more memorable while providing access to premium and authentic companions.</p>
             </div>
@@ -1208,7 +2275,7 @@
                 </h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">If you are looking for a slow and cosy night filled
                     with romance, you have reached the right website. Simply contact us through the WhatsApp button. We
-                    have affordable &lt;strong&gt;call girls near Chandigarh&lt;/strong&gt; who can make you feel
+                    have affordable <strong>call girls near Chandigarh</strong> who can make you feel
                     special, relaxed, and genuinely wanted.</p>
                 <div style="margin: 20px 0px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden;">
                     <table style="width: 100%; border-collapse: collapse; text-align: left; background: var(--card);">
@@ -1276,7 +2343,7 @@
             <div style="margin-bottom: 40px;">
                 <h2 style="margin-bottom: 15px;">Experience The Special Charm Of Our Chandigarh Adult Services</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">We are available 24 hours a day, allowing clients to
-                    contact us whenever they need assistance. Our clients can also make bookings 2–3 days in advance
+                    contact us whenever they need assistance. Our clients can also make bookings 2–3 days ahead
                     when they already know their preferred date.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">We can manage special requests such as private
                     parties, specific visits, hotel rooms, and other arrangements according to availability.</p>
@@ -1308,27 +2375,22 @@
             <div style="margin-bottom: 40px;">
                 <h2 style="margin-bottom: 15px;">What makes our Aroohii Chandigarh call girl service special?</h2>
                 <p style="margin-bottom: 16px; line-height: 1.6;">We care most about making you feel comfortable, safe,
-                    and happy. We do not ask for any payment in advance—you pay only in cash when the girl reaches you.
-                    Prices start at reasonable rates for a whole night of fun, depending on the selected girl and arrangement.</p>
+                    and happy. Our verified companions are dedicated to providing warm, engaging, and memorable company.
+                    Prices start at reasonable rates for a whole night of fun, depending on the selected profile and arrangement.</p>
                 <p style="margin-bottom: 16px; line-height: 1.6;">There are no hidden charges or unexpected surprises.
-                    The applicable rate is communicated beforehand so you know what you are paying. Other call girl
-                    agencies in Chandigarh may ask for taxi charges and tips, while our pricing details are discussed in
-                    advance so clients can understand the expected cost before confirming.</p>
+                    The applicable rate is communicated clearly beforehand so you know what you are paying. All details
+                    and expectations are discussed smoothly with our concierge so clients have complete clarity before confirming.</p>
             </div>
-            <div style="margin-bottom: 40px;">
+            <div style="margin-bottom: 40px; scroll-margin-top: 80px;" id="faq">
                 <h2 style="margin-bottom: 15px;">Frequently Asked Questions - Chandigarh Call Girls</h2>
                 <div class="faq-item">
                     <div class="faq-question">
-                        <div class="faq-question-content"><span class="faq-q-badge">Q1</span> Do I need to pay advance
-                            for booking call girls in Chandigarh?</div>
+                        <div class="faq-question-content"><span class="faq-q-badge">Q1</span> How do I book and confirm a profile in Chandigarh?</div>
                         <div class="faq-icon" style="font-size: 10px;">▼</div>
                     </div>
                     <div class="faq-answer"><span class="faq-a-badge">A</span>
                         <div style="flex: 1 1 0%;">
-                            <p style="margin-top: 0px; margin-bottom: 12px; line-height: 1.6;">No, we do not require any
-                                advance payment. Our Chandigarh call girl service operates on cash-on-delivery basis.
-                                You only pay when the girl arrives at your location. This ensures transparency and
-                                builds trust with our clients. There are no hidden charges or unexpected surprises.</p>
+                            <p style="margin-top: 0px; margin-bottom: 12px; line-height: 1.6;">Booking is simple, fast, and completely confidential. Just click the WhatsApp or Call button on any profile to connect directly with our concierge. Share your preferred date, time, and meeting venue to confirm all details smoothly.</p>
                         </div>
                     </div>
                 </div>
@@ -1375,7 +2437,7 @@
                             <p style="margin-top: 0px; margin-bottom: 12px; line-height: 1.6;">You can contact our
                                 independent Chandigarh call girls through WhatsApp or phone call. Simply click the
                                 WhatsApp button on our website to browse profiles and connect directly. Our service is
-                                available 24/7. You can also make bookings 2-3 days in advance when you know your
+                                available 24/7. You can also make bookings 2-3 days ahead when you know your
                                 preferred date. The girl typically arrives within 30-60 minutes depending on your
                                 location.</p>
                         </div>
@@ -1383,56 +2445,138 @@
                 </div>
             </div>
         </div>
-        <div class="seo-tags-section">
-            <h3
-                style="margin-top: 0px; margin-bottom: 20px; color: var(--text-light); text-align: center; font-size: 16px;">
-                Popular Local Search Tags</h3>
-            <div class="seo-tags-container"><a class="seo-tag" href="#">Call Girl girl</a><a class="seo-tag"
-                    href="#">Call Girls कॉल गर्ल लिस्ट Chandigarh</a><a class="seo-tag" href="#">Chandigarh sex</a><a
-                    class="seo-tag" href="#">Chandigarh Russian Call Girls</a><a class="seo-tag" href="#">Chandigarh
-                    Call Girls royal Call Girls in Chandigarh</a><a class="seo-tag" href="#">Chandigarh Call Girls
-                    Locanto</a><a class="seo-tag" href="#">girls Call Girl</a><a class="seo-tag" href="#">service model
-                    Call Girls in Chandigarh</a><a class="seo-tag" href="#">air hostess escorts Chandigarh</a><a
-                    class="seo-tag" href="#">Bengali call girls Chandigarh</a><a class="seo-tag" href="#">celebrity
-                    escorts Chandigarh</a><a class="seo-tag" href="#">college girls in Chandigarh</a><a class="seo-tag"
-                    href="#">discreet escort service Chandigarh</a><a class="seo-tag" href="#">Dubai escorts
-                    Chandigarh</a><a class="seo-tag" href="#">elite escort Chandigarh</a><a class="seo-tag"
-                    href="#">escort ads Chandigarh</a><a class="seo-tag" href="#">escort service listing
-                    Chandigarh</a><a class="seo-tag" href="#">foreign Call Girls in Chandigarh</a><a class="seo-tag"
-                    href="#">hotel Call Girls in Chandigarh</a><a class="seo-tag" href="#">housewife Call Girls in
-                    Chandigarh</a><a class="seo-tag" href="#">independent call girls</a><a class="seo-tag"
-                    href="#">independent Call Girls Chandigarh</a><a class="seo-tag" href="#">independent Call Girls in
-                    Chandigarh</a><a class="seo-tag" href="#">independent Chandigarh Call Girls</a><a class="seo-tag"
-                    href="#">model Call Girls Chandigarh</a><a class="seo-tag" href="#">royal Call Girls
-                    Chandigarh</a><a class="seo-tag" href="#">Russian Call Girls Chandigarh</a><a class="seo-tag"
-                    href="#">Russian Call Girls in Chandigarh</a><a class="seo-tag" href="#">service model Call Girls in
-                    Chandigarh</a><a class="seo-tag" href="#">sexy Call Girls</a><a class="seo-tag" href="#">VIP Call
-                    Girls in Chandigarh</a><a class="seo-tag" href="#">24 hour call girl service Chandigarh</a><a
-                    class="seo-tag" href="#">affordable call girls Chandigarh</a><a class="seo-tag" href="#">book call
-                    girl in Chandigarh</a><a class="seo-tag" href="#">budget escort service Chandigarh</a><a
-                    class="seo-tag" href="#">call girl near me contact number</a><a class="seo-tag" href="#">call girl
-                    service Chandigarh India</a><a class="seo-tag" href="#">call girls website Chandigarh</a><a
-                    class="seo-tag" href="#">cheap escort service near me</a><a class="seo-tag" href="#">full night call
-                    girls Chandigarh</a><a class="seo-tag" href="#">genuine escort service Chandigarh</a><a
-                    class="seo-tag" href="#">high class call girls Chandigarh</a><a class="seo-tag" href="#">high
-                    profile escorts Chandigarh</a><a class="seo-tag" href="#">hire escort in Chandigarh</a><a
-                    class="seo-tag" href="#">home service call girls Chandigarh</a><a class="seo-tag" href="#">hotel
-                    service call girls Chandigarh</a><a class="seo-tag" href="#">independent escorts Chandigarh
-                    India</a><a class="seo-tag" href="#">Indian call girls Chandigarh</a><a class="seo-tag"
-                    href="#">international escorts Chandigarh</a><a class="seo-tag" href="#">Chandigarh escort
-                    classifieds</a><a class="seo-tag" href="#">Chandigarh me call girl ka number</a><a class="seo-tag"
-                    href="#">Chandigarh एस्कॉर्ट सर्विस</a><a class="seo-tag" href="#">Chandigarh में कॉल गर्ल</a><a
-                    class="seo-tag" href="#">luxury call girls Chandigarh price</a><a class="seo-tag" href="#">luxury
-                    escort service Chandigarh</a><a class="seo-tag" href="#">male escort Chandigarh</a><a
-                    class="seo-tag" href="#">premium call girls Chandigarh</a><a class="seo-tag" href="#">premium
-                    escorts Chandigarh</a><a class="seo-tag" href="#">private escort service Chandigarh</a><a
-                    class="seo-tag" href="#">Punjabi call girls Chandigarh</a><a class="seo-tag" href="#">Russian
-                    escorts Chandigarh</a><a class="seo-tag" href="#">safe escort service Chandigarh</a><a
-                    class="seo-tag" href="#">short time call girls Chandigarh</a><a class="seo-tag" href="#">Thai call
-                    girls Chandigarh</a><a class="seo-tag" href="#">trusted call girl service Chandigarh</a><a
-                    class="seo-tag" href="#">verified call girls Chandigarh</a><a class="seo-tag" href="#">VIP escorts
-                    Chandigarh</a><a class="seo-tag" href="#">कॉल गर्ल नंबर Chandigarh</a><a class="seo-tag"
-                    href="#">कॉल गर्ल सर्विस Chandigarh</a><a class="seo-tag" href="#">सस्ती कॉल गर्ल Chandigarh</a>
+        <div class="seo-tags-section" style="background: var(--surface); border-top: 1px solid var(--border); padding: 35px 15px;">
+            <h3 style="margin-top: 0px; margin-bottom: 20px; color: var(--accent-gold); text-align: center; font-size: 17px; font-weight: 700; letter-spacing: 0.5px;">
+                Popular Service Locations & Trending Keywords</h3>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 1050px; margin: 0 auto;">
+                <!-- Existing Location & Category Tags -->
+                <a class="seo-tag" href="#">Rental Girlfriend in Chandigarh</a>
+                <a class="seo-tag" href="#">Rent a Girlfriend Chandigarh</a>
+                <a class="seo-tag" href="#">Girlfriend for Events Chandigarh</a>
+                <a class="seo-tag" href="#">Social Dating Companion Chandigarh</a>
+                <a class="seo-tag" href="#">Sector 17 Chandigarh</a>
+                <a class="seo-tag" href="#">Sector 35 Chandigarh</a>
+                <a class="seo-tag" href="#">Sector 22 Chandigarh</a>
+                <a class="seo-tag" href="#">Mohali Phase 7</a>
+                <a class="seo-tag" href="#">Panchkula Sector 11</a>
+                <a class="seo-tag" href="#">Zirakpur VIP Road</a>
+                <a class="seo-tag" href="#">Independent Companions</a>
+                <a class="seo-tag" href="#">Verified Local Services</a>
+                <a class="seo-tag" href="#">24/7 Support</a>
+
+                <!-- Classifieds Directory Keywords -->
+                <a class="seo-tag" href="#">Chandigarh Classifieds</a>
+                <a class="seo-tag" href="#">Local Event Gigs</a>
+                <a class="seo-tag" href="#">Delhi Freelancers</a>
+                <a class="seo-tag" href="#">Chandigarh Spa Ads</a>
+                <a class="seo-tag" href="#">Verified Business Posters</a>
+                <a class="seo-tag" href="#">Direct Poster Ads</a>
+                <a class="seo-tag" href="#">Mohali Event Staffing</a>
+                <a class="seo-tag" href="#">Panchkula Health Services</a>
+                <a class="seo-tag" href="#">Personal Assistant Gigs</a>
+                <a class="seo-tag" href="#">Social Event Companions</a>
+                <a class="seo-tag" href="#">Part-Time Services</a>
+                <a class="seo-tag" href="#">VIP Concierge Chandigarh</a>
+                <a class="seo-tag" href="#">Zero Commission Ads</a>
+                <a class="seo-tag" href="#">Global Talent Directory</a>
+
+                <!-- High Traffic Local Keywords -->
+                <a class="seo-tag" href="#">Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">Chandigarh Call Girls</a>
+                <a class="seo-tag" href="#">Call Girls Near Me</a>
+                <a class="seo-tag" href="#">VIP Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">Chandigarh Independent Call Girls</a>
+                <a class="seo-tag" href="#">Cheap Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">Russian Call Girls Chandigarh</a>
+                <a class="seo-tag" href="#">College Call Girls Chandigarh</a>
+                <a class="seo-tag" href="#">Air Hostess Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">Chandigarh VIP Escorts Agency</a>
+                <a class="seo-tag" href="#">Verified Tricity Companions</a>
+                <a class="seo-tag" href="#">Call Girl Service Chandigarh</a>
+                <a class="seo-tag" href="#">Call Girl Number Chandigarh</a>
+                <a class="seo-tag" href="#">Chandigarh Call Girls WhatsApp</a>
+                <a class="seo-tag" href="#">Mohali Call Girls</a>
+                <a class="seo-tag" href="#">Panchkula Call Girls</a>
+                <a class="seo-tag" href="#">Zirakpur Call Girls</a>
+                <a class="seo-tag" href="#">Sector 17 VIP Escorts</a>
+                <a class="seo-tag" href="#">Sector 35 Luxury Companions</a>
+                <a class="seo-tag" href="#">Sector 22 Independent Girls</a>
+                <a class="seo-tag" href="#">Mohali Phase 7 Companions</a>
+                <a class="seo-tag" href="#">Body Massage Chandigarh</a>
+                <a class="seo-tag" href="#">Spa & Wellness Chandigarh</a>
+                <a class="seo-tag" href="#">Escort Service in Chandigarh</a>
+                <a class="seo-tag" href="#">Thai Massage Chandigarh</a>
+
+                <!-- Additional Local Search Tags & Hindi Keywords -->
+                <a class="seo-tag" href="#">Call Girl girl</a>
+                <a class="seo-tag" href="#">Call Girls कॉल गर्ल लिस्ट Chandigarh</a>
+                <a class="seo-tag" href="#">Chandigarh sex</a>
+                <a class="seo-tag" href="#">Chandigarh Russian Call Girls</a>
+                <a class="seo-tag" href="#">Chandigarh Call Girls royal Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">Chandigarh Call Girls Locanto</a>
+                <a class="seo-tag" href="#">girls Call Girl</a>
+                <a class="seo-tag" href="#">service model Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">air hostess escorts Chandigarh</a>
+                <a class="seo-tag" href="#">Bengali call girls Chandigarh</a>
+                <a class="seo-tag" href="#">celebrity escorts Chandigarh</a>
+                <a class="seo-tag" href="#">college girls in Chandigarh</a>
+                <a class="seo-tag" href="#">discreet escort service Chandigarh</a>
+                <a class="seo-tag" href="#">Dubai escorts Chandigarh</a>
+                <a class="seo-tag" href="#">elite escort Chandigarh</a>
+                <a class="seo-tag" href="#">escort ads Chandigarh</a>
+                <a class="seo-tag" href="#">escort service listing Chandigarh</a>
+                <a class="seo-tag" href="#">foreign Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">hotel Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">housewife Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">independent call girls</a>
+                <a class="seo-tag" href="#">independent Call Girls Chandigarh</a>
+                <a class="seo-tag" href="#">independent Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">independent Chandigarh Call Girls</a>
+                <a class="seo-tag" href="#">model Call Girls Chandigarh</a>
+                <a class="seo-tag" href="#">royal Call Girls Chandigarh</a>
+                <a class="seo-tag" href="#">Russian Call Girls Chandigarh</a>
+                <a class="seo-tag" href="#">Russian Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">sexy Call Girls</a>
+                <a class="seo-tag" href="#">VIP Call Girls in Chandigarh</a>
+                <a class="seo-tag" href="#">24 hour call girl service Chandigarh</a>
+                <a class="seo-tag" href="#">affordable call girls Chandigarh</a>
+                <a class="seo-tag" href="#">book call girl in Chandigarh</a>
+                <a class="seo-tag" href="#">budget escort service Chandigarh</a>
+                <a class="seo-tag" href="#">call girl near me contact number</a>
+                <a class="seo-tag" href="#">call girl service Chandigarh India</a>
+                <a class="seo-tag" href="#">call girls website Chandigarh</a>
+                <a class="seo-tag" href="#">cheap escort service near me</a>
+                <a class="seo-tag" href="#">full night call girls Chandigarh</a>
+                <a class="seo-tag" href="#">genuine escort service Chandigarh</a>
+                <a class="seo-tag" href="#">high class call girls Chandigarh</a>
+                <a class="seo-tag" href="#">high profile escorts Chandigarh</a>
+                <a class="seo-tag" href="#">hire escort in Chandigarh</a>
+                <a class="seo-tag" href="#">home service call girls Chandigarh</a>
+                <a class="seo-tag" href="#">hotel service call girls Chandigarh</a>
+                <a class="seo-tag" href="#">independent escorts Chandigarh India</a>
+                <a class="seo-tag" href="#">Indian call girls Chandigarh</a>
+                <a class="seo-tag" href="#">international escorts Chandigarh</a>
+                <a class="seo-tag" href="#">Chandigarh escort classifieds</a>
+                <a class="seo-tag" href="#">Chandigarh me call girl ka number</a>
+                <a class="seo-tag" href="#">Chandigarh एस्कॉर्ट सर्विस</a>
+                <a class="seo-tag" href="#">Chandigarh में कॉल गर्ल</a>
+                <a class="seo-tag" href="#">luxury call girls Chandigarh price</a>
+                <a class="seo-tag" href="#">luxury escort service Chandigarh</a>
+                <a class="seo-tag" href="#">male escort Chandigarh</a>
+                <a class="seo-tag" href="#">premium call girls Chandigarh</a>
+                <a class="seo-tag" href="#">premium escorts Chandigarh</a>
+                <a class="seo-tag" href="#">private escort service Chandigarh</a>
+                <a class="seo-tag" href="#">Punjabi call girls Chandigarh</a>
+                <a class="seo-tag" href="#">Russian escorts Chandigarh</a>
+                <a class="seo-tag" href="#">safe escort service Chandigarh</a>
+                <a class="seo-tag" href="#">short time call girls Chandigarh</a>
+                <a class="seo-tag" href="#">Thai call girls Chandigarh</a>
+                <a class="seo-tag" href="#">trusted call girl service Chandigarh</a>
+                <a class="seo-tag" href="#">verified call girls Chandigarh</a>
+                <a class="seo-tag" href="#">VIP escorts Chandigarh</a>
+                <a class="seo-tag" href="#">कॉल गर्ल नंबर Chandigarh</a>
+                <a class="seo-tag" href="#">कॉल गर्ल सर्विस Chandigarh</a>
+                <a class="seo-tag" href="#">सस्ती कॉल गर्ल Chandigarh</a>
             </div>
         </div>
 
@@ -1442,7 +2586,7 @@
 
     <!-- 6. Footer -->
     <footer>
-        <p>&copy; 2026 ChandigarhLYF Classifieds Directory. All rights reserved.</p>
+        <p>&copy; <span id="currentYear"></span> ChandigarhLYF Classifieds Directory. All rights reserved.</p>
         <p style="margin-top: 15px;">
             <a href="#">Privacy Policy</a> |
             <a href="#">Terms of Service</a> |
@@ -1450,36 +2594,39 @@
         </p>
     </footer>
 
-    <!-- 7. Mobile Action Bar (Sticky Bottom) -->
-    <div class="mobile-bottom-bar">
-        <a href="tel:+910000000000" class="bottom-action call">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                style="margin-right: 8px;">
-                <path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                </path>
+    <!-- Floating Bottom-Center Attention Dock (Call + WhatsApp + Website) -->
+    <div class="bottom-center-dock">
+        <a href="tel:+916203540719" class="dock-btn phone" title="Direct Phone Call">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
             </svg>
-            CALL POSTER
+            <span>Call</span>
         </a>
-        <a href="https://wa.me/910000000000" class="bottom-action whatsapp">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                style="margin-right: 8px;">
-                <path
-                    d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
-                </path>
+        <a href="https://wa.me/916203540719" class="dock-btn whatsapp" target="_blank" rel="noopener" title="WhatsApp Chat">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.53 7.35C9.33 7.35 9.07 7.42 8.87 7.64C8.61 7.93 7.88 8.61 7.88 10C7.88 11.39 8.89 12.73 9.03 12.92C9.17 13.11 11.02 15.96 13.85 17.18C16.21 18.2 16.69 17.99 17.21 17.95C17.74 17.9 18.91 17.25 19.15 16.57C19.39 15.9 19.39 15.32 19.32 15.2C19.25 15.08 19.09 15.01 18.85 14.89C18.6 14.77 17.41 14.18 17.19 14.1C16.97 14.02 16.8 13.98 16.64 14.23C16.48 14.47 16 15.08 15.84 15.26C15.68 15.45 15.52 15.47 15.27 15.35C15.03 15.23 14.25 14.97 13.33 14.15C12.61 13.51 12.13 12.72 11.98 12.48C11.84 12.23 11.97 12.1 12.09 11.98C12.2 11.87 12.33 11.7 12.46 11.55C12.58 11.4 12.62 11.29 12.71 11.13C12.79 10.96 12.75 10.82 12.69 10.7C12.62 10.58 12.06 9.21 11.83 8.65C11.6 8.11 11.37 8.18 11.21 8.17C11.06 8.16 10.89 8.16 10.73 8.16C10.56 8.16 10.29 8.22 10.06 8.47C9.84 8.71 9.53 7.35 9.53 7.35Z"/>
             </svg>
-            CHAT ON WHATSAPP
+            <span>WhatsApp</span>
+        </a>
+        <a href="https://rojlo.in/" class="dock-btn website" target="_blank" rel="noopener" title="Official Website">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span>Website</span>
         </a>
     </div>
-
-    <!-- Floating Post Ad Button -->
-    <a href="#" class="floating-btn" title="Post Free Ad">
-        +
-    </a>
 
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // Dynamic Copyright Year
+            const yearElem = document.getElementById('currentYear');
+            if (yearElem) {
+                yearElem.textContent = new Date().getFullYear();
+            }
             // 1. Mobile Menu Toggle
             const menuBtn = document.getElementById('menuToggle');
             const mobileNav = document.getElementById('mobileNav');
@@ -1515,8 +2662,100 @@
                 }
             });
 
+            // 3. Search & Area Filter Logic
+            const searchCity = document.getElementById('searchCity');
+            const searchArea = document.getElementById('searchArea');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const noResultsMsg = document.getElementById('noResultsMsg');
+            const resetSearchBtn = document.getElementById('resetSearchBtn');
+            const cards = document.querySelectorAll('.listings-grid .listing-card');
+
+            function filterListings(scrollAfter = false) {
+                const selectedCity = (searchCity ? searchCity.value : '').toLowerCase().trim();
+                const selectedArea = (searchArea ? searchArea.value : '').toLowerCase().trim();
+                const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+
+                let visibleCount = 0;
+
+                cards.forEach(card => {
+                    const cardCity = (card.getAttribute('data-city') || '').toLowerCase();
+                    const cardArea = (card.getAttribute('data-area') || '').toLowerCase();
+                    const cardText = card.innerText.toLowerCase();
+
+                    let matchCity = !selectedCity || cardCity === selectedCity || cardText.includes(selectedCity);
+                    let matchArea = !selectedArea || cardArea === selectedArea || cardText.includes(selectedArea);
+                    let matchQuery = !query || cardText.includes(query) || cardCity.includes(query) || cardArea.includes(query);
+
+                    if (matchCity && matchArea && matchQuery) {
+                        card.style.display = '';
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (noResultsMsg) {
+                    noResultsMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+                }
+
+                if (scrollAfter) {
+                    const profilesGrid = document.getElementById('profiles');
+                    if (profilesGrid) {
+                        profilesGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            }
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    filterListings(true);
+                });
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter') {
+                        filterListings(true);
+                    } else {
+                        filterListings(false);
+                    }
+                });
+            }
+
+            if (searchCity) {
+                searchCity.addEventListener('change', () => filterListings(false));
+            }
+
+            if (searchArea) {
+                searchArea.addEventListener('change', () => filterListings(false));
+            }
+
+            if (resetSearchBtn) {
+                resetSearchBtn.addEventListener('click', () => {
+                    if (searchCity) searchCity.value = '';
+                    if (searchArea) searchArea.value = '';
+                    if (searchInput) searchInput.value = '';
+                    filterListings(false);
+                });
+            }
+
+            // Support clicking any SEO tag to filter instantly
+            document.querySelectorAll('.seo-tag').forEach(tag => {
+                tag.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const tagText = tag.textContent.trim().toLowerCase();
+                    if (searchInput) {
+                        searchInput.value = tagText;
+                        filterListings(true);
+                    }
+                });
+            });
+
         });
     </script>
+
 </body>
 
 </html>
